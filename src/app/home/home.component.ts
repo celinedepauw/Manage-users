@@ -27,8 +27,8 @@ export class HomeComponent implements OnInit {
     return `${lastname.toUpperCase()} ${firstnameUpper}`
   }
 
-  goToUser(){
-    this.router.navigateByUrl('/user/:id')
+  goToUser(id: string){
+    this.router.navigateByUrl(`/user/${id}`)
   }
 
   goToCreateUser(){
