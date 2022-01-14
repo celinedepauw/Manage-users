@@ -1,0 +1,18 @@
+.login-main{
+    width: 100vw;
+    height: 100vh;
+
+    .login-picture{
+        width: 70%;
+    }
+
+    .login-form{
+        width: 30%;
+
+        .login-form-button{
+            background-color: black;
+            color: white;
+            margin: 15px 0;
+        }
+    }
+}
