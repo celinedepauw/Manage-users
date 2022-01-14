@@ -16,4 +16,8 @@ export class UserService {
     return this.http  
       .get<User[]>('http://localhost:5000/api/v1/users')
   }
+
+  getUserById(id: string): Observable<User>{
+    return this.http.get<User>(`http://localhost:5000/api/v1/users/${id}`)
+  }
 }

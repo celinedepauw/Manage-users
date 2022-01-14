@@ -7,19 +7,19 @@
     <form class="details-form" fxLayout="column">
         <mat-form-field>
             <mat-label>Nom</mat-label>
-            <input matInput value="DOE">
+            <input matInput value={{user.lastName}}>
         </mat-form-field>
         <mat-form-field>
             <mat-label>Prénom</mat-label>
-            <input matInput value="John">
+            <input matInput value={{user.firstName}}>
         </mat-form-field>
         <mat-form-field>
             <mat-label>Adresse mail</mat-label>
-            <input matInput value="john.doe@gmail.com">
+            <input matInput value={{user.email}}>
         </mat-form-field>
         <mat-form-field>
             <mat-label>Numéro de téléphone</mat-label>
-            <input matInput value="06.23.11.40.01">
+            <input matInput value={{user.phoneNumber}}>
         </mat-form-field>
         <div class="details-form-buttons" fxLayout="row">
             <button mat-flat-button class="details-form-button" type="submit">Modifier</button>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from '../user';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-details-user',
@@ -14,7 +15,8 @@ export class DetailsUserComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private userService: UserService
   ) { }
 
   ngOnInit(): void {
@@ -25,6 +27,8 @@ export class DetailsUserComponent implements OnInit {
     else{
       this.router.navigateByUrl('/home')
     }
+    this.userService.getUserById(this.userId)
+      .subscribe(user => this.user = user)
   }
 
   goBackHome(){
