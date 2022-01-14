@@ -1,0 +1,32 @@
+.details-main{
+
+    .details-picture{
+        display: block;
+        margin: auto;
+        width: 80%;
+        height: 300px;
+    }
+
+    .details-return-icon{
+        width: 50px;
+        margin-left: 50%;
+    }
+
+    .details-title{
+        text-align: center;
+        font-size: 2.5rem;
+        margin-bottom: 50px;
+        font-weight: 400;
+    }
+
+    .details-form{
+        width: 30%;
+      
+        .details-form-button{
+            display: block;
+            background-color: black;
+            color: white;
+            margin: 20px auto;
+        }
+    }
+}

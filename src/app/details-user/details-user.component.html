@@ -1,1 +1,30 @@
-<p>details-user works!</p>
+<main class="details-main" fxLayout="column" fxLayoutAlign="start center">
+    <img class="details-picture" src="../../assets/images/banniere.png">
+    <a fxFlexAlign="start" (click)="goBackHome()">
+        <img src="../../assets/images/return.png" alt="return to home page" class="details-return-icon" />
+    </a>
+    <h2 class="details-title">Informations adhérent</h2>
+    <form class="details-form" fxLayout="column">
+        <mat-form-field>
+            <mat-label>Nom</mat-label>
+            <input matInput value="DOE">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Prénom</mat-label>
+            <input matInput value="John">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Adresse mail</mat-label>
+            <input matInput value="john.doe@gmail.com">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Numéro de téléphone</mat-label>
+            <input matInput value="06.23.11.40.01">
+        </mat-form-field>
+        <div class="details-form-buttons" fxLayout="row">
+            <button mat-flat-button class="details-form-button" type="submit">Modifier</button>
+            <button mat-flat-button class="details-form-button" type="submit">Supprimer</button>
+        </div>
+        
+    </form>
+</main>
