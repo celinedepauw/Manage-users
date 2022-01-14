@@ -1,0 +1,28 @@
+.home-main{
+
+    .home-picture{
+        display: block;
+        margin: auto;
+        width: 80%;
+        height: 300px;
+    }
+
+    .home-title{
+        text-align: center;
+        font-size: 2.5rem;
+    }
+
+    mat-card{
+       width: 400px; 
+       margin:10px 0; 
+    }
+
+    .home-form-button{
+        display: block;
+        background-color: black;
+        color: white;
+        margin: 40px auto;
+    }
+    
+}
+
