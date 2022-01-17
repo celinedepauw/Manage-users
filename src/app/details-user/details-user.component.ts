@@ -22,6 +22,12 @@ export class DetailsUserComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.updateForm = new FormGroup({
+      lastnameToUpdate: new FormControl(''),
+      firstnameToUpdate: new FormControl(''),
+      emailToUpdate: new FormControl(''),
+      phoneNumberToUpdate: new FormControl('')
+    });
     const routeParams = this.route.snapshot.paramMap;
     if(this.userId != ''){
       this.userId = routeParams.get('idUser')!
@@ -32,13 +38,15 @@ export class DetailsUserComponent implements OnInit {
     this.userService.getUserById(this.userId)
       .subscribe(user => {
         this.user = user,
-        this.updateForm = new FormGroup({
-          lastnameToUpdate: new FormControl(user.lastName),
-          firstnameToUpdate: new FormControl(user.firstName),
-          emailToUpdate: new FormControl(user.email),
-          phoneNumberToUpdate: new FormControl(user.phoneNumber)
-        });
-      })
+        console.log('valeur du nom : ', this.updateForm.value.lastnameToUpdate)
+        this.updateForm.setValue({
+          lastnameToUpdate: user.lastName,
+          firstnameToUpdate: user.firstName,
+          emailToUpdate: user.email,
+          phoneNumberToUpdate: user.phoneNumber,
+        })
+      }
+      )
   }
 
   deleteUser(){
