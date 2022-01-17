@@ -38,8 +38,8 @@ export class UserService {
     return this.http.delete(`http://localhost:5000/api/v1/users/${userId}`)
   }
 
-  updateUser(userId: string, firstname: string, lastname: string, email: string, phoneNumber: string){
-    return this.http.put(
+  updateUser(userId: string, firstname: string, lastname: string, email: string, phoneNumber: string): Observable<User>{
+    return this.http.put<User>(
       `http://localhost:5000/api/v1/users/${userId}`,
       {
         "firstName": firstname,

@@ -43,16 +43,22 @@ export class DetailsUserComponent implements OnInit {
 
   deleteUser(){
     this.userService.deleteUser(this.userId)
-      .subscribe()
-    this.userService.getAllUsers()
-    this.router.navigateByUrl('/home')
+      .subscribe(resp => {
+        this.router.navigateByUrl('/home')
+      })
   }
 
   updateUser(){
-    this.userService.updateUser(this.userId, this.updateForm.value.firstnameToUpdate, this.updateForm.value.lastnameToUpdate, this.updateForm.value.emailToUpdate, this.updateForm.value.phoneNumberToUpdate)
-      .subscribe()
-    this.userService.getAllUsers()
-    this.router.navigateByUrl('/home')
+    this.userService.updateUser(
+      this.userId, 
+      this.updateForm.value.firstnameToUpdate, 
+      this.updateForm.value.lastnameToUpdate, 
+      this.updateForm.value.emailToUpdate, 
+      this.updateForm.value.phoneNumberToUpdate)
+        .subscribe(resp => {
+          this.router.navigateByUrl('/home')
+        })
+    
   }
 
   goBackHome(){
