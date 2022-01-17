@@ -34,6 +34,9 @@ export class UserService {
     )
   }
 
+  deleteUser(userId: string){
+    return this.http.delete(`http://localhost:5000/api/v1/users/${userId}`)
+  }
 
    /*createNewUser(lastName: string, firstName: string, email: string, password: string, phoneNumber: string): Observable<User>{
     console.log(`user avant endpoint : nom=${lastName}, prénom=${firstName}, email=${email}, password=${password}, phoneNumber=${phoneNumber}`);

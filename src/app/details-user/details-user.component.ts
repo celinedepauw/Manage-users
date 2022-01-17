@@ -31,6 +31,12 @@ export class DetailsUserComponent implements OnInit {
       .subscribe(user => this.user = user)
   }
 
+  deleteUser(){
+    this.userService.deleteUser(this.userId)
+      .subscribe()
+    this.router.navigateByUrl('/home')
+  }
+
   goBackHome(){
     this.router.navigateByUrl('/home')
   }
