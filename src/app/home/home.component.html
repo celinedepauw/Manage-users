@@ -2,7 +2,7 @@
     <img class="home-picture" src="../../assets/images/banniere.png">
     <h1 class="home-title">Liste des adhérents</h1>
     <div class="home-users" fxLayout="column" fxLayoutAlign="center center">
-        <mat-card *ngFor="let user of users$" fxLayoutAlign="center center" (click)="goToUser(user._id)">
+        <mat-card *ngFor="let user of users$" fxLayoutAlign="center center" (click)="goToUser(user._id!)">
             <mat-card-title>{{ getName(user.lastName, user.firstName) }}</mat-card-title>
         </mat-card>
        
