@@ -20,6 +20,7 @@ import { HomeComponent } from './home/home.component';
 import { DetailsUserComponent } from './details-user/details-user.component';
 import { CreateUserComponent } from './create-user/create-user.component';
 import { ModalDeleteComponent } from './modal-delete/modal-delete.component';
+import { ModalRegisterComponent } from './modal-register/modal-register.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { ModalDeleteComponent } from './modal-delete/modal-delete.component';
     HomeComponent,
     DetailsUserComponent,
     CreateUserComponent,
-    ModalDeleteComponent
+    ModalDeleteComponent,
+    ModalRegisterComponent
   ],
   imports: [
     BrowserModule,

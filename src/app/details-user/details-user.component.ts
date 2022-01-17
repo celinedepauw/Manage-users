@@ -60,7 +60,7 @@ export class DetailsUserComponent implements OnInit {
       })
   }*/
 
-  openDialogForDelete(){
+  openModalForDelete(){
     const dialogRef = this.dialog.open(ModalDeleteComponent, {
       width: '350px',
       data: {userId: this.userId}
