@@ -10,6 +10,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
+import { MatDialogModule } from '@angular/material/dialog';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 
@@ -18,6 +19,7 @@ import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { DetailsUserComponent } from './details-user/details-user.component';
 import { CreateUserComponent } from './create-user/create-user.component';
+import { ModalDeleteComponent } from './modal-delete/modal-delete.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,8 @@ import { CreateUserComponent } from './create-user/create-user.component';
     LoginComponent,
     HomeComponent,
     DetailsUserComponent,
-    CreateUserComponent
+    CreateUserComponent,
+    ModalDeleteComponent
   ],
   imports: [
     BrowserModule,
@@ -40,6 +43,7 @@ import { CreateUserComponent } from './create-user/create-user.component';
     MatFormFieldModule,
     MatInputModule,
     MatCardModule,
+    MatDialogModule,
     HttpClientModule,
     CommonModule
   ],

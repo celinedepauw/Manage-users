@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ModalDeleteComponent } from '../modal-delete/modal-delete.component';
 import { User } from '../user';
 import { UserService } from '../user.service';
 
@@ -18,7 +20,8 @@ export class DetailsUserComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private userService: UserService
+    private userService: UserService,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -49,11 +52,19 @@ export class DetailsUserComponent implements OnInit {
       )
   }
 
+  /* when deleting a user without confirmation in modal
   deleteUser(){
     this.userService.deleteUser(this.userId)
       .subscribe(resp => {
         this.router.navigateByUrl('/home')
       })
+  }*/
+
+  openDialogForDelete(){
+    const dialogRef = this.dialog.open(ModalDeleteComponent, {
+      width: '350px',
+      data: {userId: this.userId}
+    });
   }
 
   updateUser(){
