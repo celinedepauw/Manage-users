@@ -4,25 +4,25 @@
         <img src="../../assets/images/return.png" alt="return to home page" class="details-return-icon" />
     </a>
     <h2 class="details-title">Informations adhérent</h2>
-    <form class="details-form" fxLayout="column">
+    <form [formGroup]="updateForm" class="details-form" fxLayout="column">
         <mat-form-field>
             <mat-label>Nom</mat-label>
-            <input matInput value={{user.lastName}}>
+            <input matInput formControlName="lastnameToUpdate">
         </mat-form-field>
         <mat-form-field>
             <mat-label>Prénom</mat-label>
-            <input matInput value={{user.firstName}}>
+            <input matInput formControlName="firstnameToUpdate">
         </mat-form-field>
         <mat-form-field>
             <mat-label>Adresse mail</mat-label>
-            <input matInput value={{user.email}}>
+            <input matInput formControlName="emailToUpdate">
         </mat-form-field>
         <mat-form-field>
             <mat-label>Numéro de téléphone</mat-label>
-            <input matInput value={{user.phoneNumber}}>
+            <input matInput formControlName="phoneNumberToUpdate">
         </mat-form-field>
         <div class="details-form-buttons" fxLayout="row">
-            <button mat-flat-button class="details-form-button" type="submit">Modifier</button>
+            <button mat-flat-button class="details-form-button" type="submit" (click)="updateUser()">Modifier</button>
             <button mat-flat-button class="details-form-button" type="submit" (click)="deleteUser()">Supprimer</button>
         </div>
         

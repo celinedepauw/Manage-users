@@ -38,6 +38,18 @@ export class UserService {
     return this.http.delete(`http://localhost:5000/api/v1/users/${userId}`)
   }
 
+  updateUser(userId: string, firstname: string, lastname: string, email: string, phoneNumber: string){
+    return this.http.put(
+      `http://localhost:5000/api/v1/users/${userId}`,
+      {
+        "firstName": firstname,
+        "lastName": lastname,
+        "email": email,
+        "phoneNumber": phoneNumber
+      }
+      )
+  }
+
    /*createNewUser(lastName: string, firstName: string, email: string, password: string, phoneNumber: string): Observable<User>{
     console.log(`user avant endpoint : nom=${lastName}, prénom=${firstName}, email=${email}, password=${password}, phoneNumber=${phoneNumber}`);
     return this.http.post<User>(
