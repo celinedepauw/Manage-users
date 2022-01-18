@@ -22,6 +22,7 @@ import { CreateUserComponent } from './create-user/create-user.component';
 import { ModalDeleteComponent } from './modal-delete/modal-delete.component';
 import { ModalRegisterComponent } from './modal-register/modal-register.component';
 import { ModalLoginErrorComponent } from './modal-login-error/modal-login-error.component';
+import { ModalUpdatePasswordComponent } from './modal-update-password/modal-update-password.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { ModalLoginErrorComponent } from './modal-login-error/modal-login-error.
     CreateUserComponent,
     ModalDeleteComponent,
     ModalRegisterComponent,
-    ModalLoginErrorComponent
+    ModalLoginErrorComponent,
+    ModalUpdatePasswordComponent
   ],
   imports: [
     BrowserModule,

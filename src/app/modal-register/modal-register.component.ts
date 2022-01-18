@@ -38,7 +38,6 @@ export class ModalRegisterComponent implements OnInit {
       phoneNumber: this.registerForm.value.phoneNumber,
       password: this.registerForm.value.password,
     }
-    console.log(this.profile),
     this.authService.register(this.profile)
       .subscribe(resp => {
         this.dialogRef.close(),

@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { AuthenticationService } from '../authentication.service';
 import { ModalLoginErrorComponent } from '../modal-login-error/modal-login-error.component';
 import { ModalRegisterComponent } from '../modal-register/modal-register.component';
+import { ModalUpdatePasswordComponent } from '../modal-update-password/modal-update-password.component';
 
 @Component({
   selector: 'app-login',
@@ -40,6 +41,12 @@ export class LoginComponent implements OnInit {
           });
         } 
       )
+  }
+
+  openModalToUpdatePassword(){
+    const dialogRef = this.dialog.open(ModalUpdatePasswordComponent, {
+      width: '350px',
+    });
   }
 
   openModalToRegister(){

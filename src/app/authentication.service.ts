@@ -27,4 +27,14 @@ export class AuthenticationService {
       }
     )
   }
+
+  updatePassword(previousPassword: string, newPassword: string){
+    return this.http.patch(
+      'http://localhost:5000/api/v1/auth/change-password',
+      {
+        "previousPassword": previousPassword,
+        "newPassword": newPassword
+      }
+    )
+  }
 }
