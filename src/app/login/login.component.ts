@@ -3,6 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../authentication.service';
+import { ModalLoginErrorComponent } from '../modal-login-error/modal-login-error.component';
 import { ModalRegisterComponent } from '../modal-register/modal-register.component';
 
 @Component({
@@ -34,7 +35,9 @@ export class LoginComponent implements OnInit {
           this.router.navigateByUrl('/home')
         },
         resp => {
-          alert('Erreur de login et/ou de mot de passe')
+          const dialogRef = this.dialog.open(ModalLoginErrorComponent, {
+            width: '350px'
+          });
         } 
       )
   }
