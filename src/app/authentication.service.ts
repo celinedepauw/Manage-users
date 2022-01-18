@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Authentication } from './authentication';
+import { User } from './user';
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +28,18 @@ export class AuthenticationService {
         "password": password
       }
     )
+  }
+
+  updateProfile(userId: string, firstname: string, lastname: string, email: string, phoneNumber: string): Observable<User>{
+    return this.http.put<User>(
+      `http://localhost:5000/api/v1/users/${userId}`,
+      {
+        "firstName": firstname,
+        "lastName": lastname,
+        "email": email,
+        "phoneNumber": phoneNumber
+      }
+      )
   }
 
   updatePassword(previousPassword: string, newPassword: string){

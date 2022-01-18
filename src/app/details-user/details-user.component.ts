@@ -41,7 +41,6 @@ export class DetailsUserComponent implements OnInit {
     this.userService.getUserById(this.userId)
       .subscribe(user => {
         this.user = user,
-        console.log('valeur du nom : ', this.updateForm.value.lastnameToUpdate)
         this.updateForm.setValue({
           lastnameToUpdate: user.lastName,
           firstnameToUpdate: user.firstName,

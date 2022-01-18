@@ -1,0 +1,31 @@
+<main class="profile-main" fxLayout="column" fxLayoutAlign="start center">
+    <img class="profile-picture" src="../../assets/images/banniere.png">
+    <a fxFlexAlign="start" (click)="goBackHome()">
+        <img src="../../assets/images/return.png" alt="return to home page" class="profile-return-icon" />
+    </a>
+    <h2 class="profile-title">Mon compte</h2>
+    <form [formGroup]="profileForm" class="profile-form" fxLayout="column">
+        <mat-form-field>
+            <mat-label>Nom</mat-label>
+            <input matInput formControlName="lastname">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Prénom</mat-label>
+            <input matInput formControlName="firstname">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Adresse mail</mat-label>
+            <input matInput formControlName="email">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Numéro de téléphone</mat-label>
+            <input matInput formControlName="phoneNumber">
+        </mat-form-field>
+        <div class="details-form-buttons" fxLayout="row">
+            <button mat-flat-button class="profile-form-button" type="submit" (click)="updateProfile()">Modifier</button>
+            <button mat-flat-button class="profile-form-button" type="submit" (click)="logout()">Déconnexion</button>
+        </div>
+        
+    </form>
+       
+</main>

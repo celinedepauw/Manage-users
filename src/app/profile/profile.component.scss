@@ -1,0 +1,32 @@
+.profile-main{
+
+    .profile-picture{
+        display: block;
+        margin: auto;
+        width: 80%;
+        height: 300px;
+    }
+
+    .profile-return-icon{
+        width: 50px;
+        margin-left: 50%;
+    }
+
+    .profile-title{
+        text-align: center;
+        font-size: 2.5rem;
+        margin-bottom: 50px;
+        font-weight: 400;
+    }
+
+    .profile-form{
+        width: 30%;
+
+        .profile-form-button{
+            display: block;
+            background-color: black;
+            color: white;
+            margin: 20px auto;
+        }
+    }
+}

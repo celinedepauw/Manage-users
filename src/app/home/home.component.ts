@@ -27,6 +27,10 @@ export class HomeComponent implements OnInit {
     return `${lastname.toUpperCase()} ${firstnameUpper}`
   }
 
+  goToProfile(){
+    this.router.navigateByUrl(`/profile/${localStorage.getItem('user_id')}`)
+  }
+
   goToUser(id: string){
     this.router.navigateByUrl(`/users/${id}`)
   }
