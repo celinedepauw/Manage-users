@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from '../authentication.service';
+import { ModalUpdatePasswordComponent } from '../modal-update-password/modal-update-password.component';
 import { User } from '../user';
 import { UserService } from '../user.service';
 
@@ -20,7 +22,8 @@ export class ProfileComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private authService: AuthenticationService,
-    private userService: UserService
+    private userService: UserService,
+    public dialog: MatDialog,
   ) { }
 
   ngOnInit(): void {
@@ -64,6 +67,12 @@ export class ProfileComponent implements OnInit {
     localStorage.removeItem('app_token')
     localStorage.removeItem('user_id')
     this.router.navigateByUrl('')
+  }
+
+  openModalToUpdatePassword(){
+    const dialogRef = this.dialog.open(ModalUpdatePasswordComponent, {
+      width: '350px',
+    });
   }
 
   goBackHome(){

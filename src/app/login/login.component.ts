@@ -45,12 +45,6 @@ export class LoginComponent implements OnInit {
       )
   }
 
-  openModalToUpdatePassword(){
-    const dialogRef = this.dialog.open(ModalUpdatePasswordComponent, {
-      width: '350px',
-    });
-  }
-
   openModalToRegister(){
     const dialogRef = this.dialog.open(ModalRegisterComponent, {
       width: '350px',
