@@ -27,6 +27,7 @@ import { ModalRegisterComponent } from './modal-register/modal-register.componen
 import { ModalErrorComponent } from './modal-error/modal-error.component';
 import { ModalUpdatePasswordComponent } from './modal-update-password/modal-update-password.component';
 import { ProfileComponent } from './profile/profile.component';
+import { ModalErrorFormComponent } from './modal-error-form/modal-error-form.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { ProfileComponent } from './profile/profile.component';
     ModalRegisterComponent,
     ModalErrorComponent,
     ModalUpdatePasswordComponent,
-    ProfileComponent
+    ProfileComponent,
+    ModalErrorFormComponent
   ],
   imports: [
     BrowserModule,

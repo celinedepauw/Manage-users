@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { ModalErrorFormComponent } from '../modal-error-form/modal-error-form.component';
 import { ModalErrorComponent } from '../modal-error/modal-error.component';
 import { User } from '../user';
 import { UserService } from '../user.service';
@@ -32,24 +33,31 @@ export class CreateUserComponent implements OnInit {
   }
 
   createUser(){
-    this.user = {
-      firstName: this.createForm.value.firstname,
-      lastName: this.createForm.value.lastname,
-      email: this.createForm.value.email,
-      password: "mdp",
-      phoneNumber: this.createForm.value.phoneNumber 
+    if(this.createForm.value.firstname != '' && this.createForm.value.lastname != '' && this.createForm.value.email != '' && this.createForm.value.phoneNumber != ''){
+      this.user = {
+        firstName: this.createForm.value.firstname,
+        lastName: this.createForm.value.lastname,
+        email: this.createForm.value.email,
+        password: "mdp",
+        phoneNumber: this.createForm.value.phoneNumber 
+      }
+      this.userService.createNewUser(this.user)
+        .subscribe(
+          resp => {
+            this.router.navigateByUrl('/home')
+          },
+          error => {
+            const dialogRef = this.dialog.open(ModalErrorComponent, {
+              width: '350px'
+            });
+          }
+        )
     }
-    this.userService.createNewUser(this.user)
-      .subscribe(
-        resp => {
-          this.router.navigateByUrl('/home')
-        },
-        error => {
-          const dialogRef = this.dialog.open(ModalErrorComponent, {
-            width: '350px'
-          });
-        }
-      )
+   else{
+    const dialogRef = this.dialog.open(ModalErrorFormComponent, {
+      width: '350px'
+      });
+   }
   }
 
   goBackHome(){

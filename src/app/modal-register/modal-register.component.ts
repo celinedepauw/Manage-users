@@ -4,6 +4,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Authentication } from '../authentication';
 import { AuthenticationService } from '../authentication.service';
+import { ModalErrorFormComponent } from '../modal-error-form/modal-error-form.component';
 import { ModalErrorComponent } from '../modal-error/modal-error.component';
 
 @Component({
@@ -33,27 +34,35 @@ export class ModalRegisterComponent implements OnInit {
   }
 
   registerProfile(){
-    this.profile = {
-      firstName: this.registerForm.value.firstname,
-      lastName: this.registerForm.value.lastname,
-      email: this.registerForm.value.email,
-      phoneNumber: this.registerForm.value.phoneNumber,
-      password: this.registerForm.value.password,
-    }
-    this.authService.register(this.profile)
-      .subscribe(
-        (resp: any) => {
-        localStorage.setItem('app_token', resp.accessToken),
-        localStorage.setItem('user_id', resp.user._id),
-        this.dialogRef.close(),
-        this.router.navigateByUrl('/home')
-      },
-      error => {
-        const dialogRef = this.dialog.open(ModalErrorComponent, {
-          width: '350px'
-        });
+    if(this.registerForm.value.firstname !='' && this.registerForm.value.lastname !='' && this.registerForm.value.email != '' && this.registerForm.value.phoneNumber != '' && this.registerForm.value.password != ''){
+      this.profile = {
+        firstName: this.registerForm.value.firstname,
+        lastName: this.registerForm.value.lastname,
+        email: this.registerForm.value.email,
+        phoneNumber: this.registerForm.value.phoneNumber,
+        password: this.registerForm.value.password,
       }
-      )
+      this.authService.register(this.profile)
+        .subscribe(
+          (resp: any) => {
+          localStorage.setItem('app_token', resp.accessToken),
+          localStorage.setItem('user_id', resp.user._id),
+          this.dialogRef.close(),
+          this.router.navigateByUrl('/home')
+        },
+        error => {
+          const dialogRef = this.dialog.open(ModalErrorComponent, {
+            width: '350px'
+          });
+        }
+        )
+    }
+    else {
+      const dialogRef = this.dialog.open(ModalErrorFormComponent, {
+        width: '350px'
+        });
+    }
+    
   }
 
   onNoClick(){

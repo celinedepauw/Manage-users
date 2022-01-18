@@ -3,6 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../authentication.service';
+import { ModalErrorFormComponent } from '../modal-error-form/modal-error-form.component';
 import { ModalErrorComponent } from '../modal-error/modal-error.component';
 import { ModalRegisterComponent } from '../modal-register/modal-register.component';
 import { ModalUpdatePasswordComponent } from '../modal-update-password/modal-update-password.component';
@@ -30,7 +31,8 @@ export class LoginComponent implements OnInit {
   }
 
   login(){
-    this.authService.login(this.loginForm.value.email, this.loginForm.value.password)
+    if(this.loginForm.value.email != '' && this.loginForm.value.password != ''){
+      this.authService.login(this.loginForm.value.email, this.loginForm.value.password)
       .subscribe(
         (resp: any) => {
           localStorage.setItem('app_token', resp.accessToken)
@@ -43,6 +45,13 @@ export class LoginComponent implements OnInit {
           });
         } 
       )
+    }
+    else{
+      const dialogRef = this.dialog.open(ModalErrorFormComponent, {
+      width: '350px'
+      });
+    }
+    
   }
 
   openModalToRegister(){
