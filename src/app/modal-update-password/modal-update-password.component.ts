@@ -3,6 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../authentication.service';
+import { ModalErrorFormComponent } from '../modal-error-form/modal-error-form.component';
 import { ModalErrorComponent } from '../modal-error/modal-error.component';
 
 @Component({
@@ -29,19 +30,26 @@ export class ModalUpdatePasswordComponent implements OnInit {
   }
 
   updatePassword(){
-    this.authService.updatePassword(
-      this.updatePasswordForm.value.previousPassword,
-      this.updatePasswordForm.value.newPassword
-    ).subscribe(
-      resp => {
-        this.dialogRef.close(),
-        this.router.navigateByUrl('/home')
-      },
-      error => {
-        const dialogRef = this.dialog.open(ModalErrorComponent, {
-          width: '350px'
+    if( this.updatePasswordForm.value.previousPassword != '' && this.updatePasswordForm.value.newPassword != ''){
+      this.authService.updatePassword(
+        this.updatePasswordForm.value.previousPassword,
+        this.updatePasswordForm.value.newPassword
+      ).subscribe(
+        resp => {
+          this.dialogRef.close(),
+          this.router.navigateByUrl('/home')
+        },
+        error => {
+          const dialogRef = this.dialog.open(ModalErrorComponent, {
+            width: '350px'
+          });
+        } 
+      )
+    }
+    else {
+      const dialogRef = this.dialog.open(ModalErrorFormComponent, {
+        width: '350px'
         });
-      } 
-    )
+    }
   }
 }
