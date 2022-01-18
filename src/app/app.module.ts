@@ -24,7 +24,7 @@ import { DetailsUserComponent } from './details-user/details-user.component';
 import { CreateUserComponent } from './create-user/create-user.component';
 import { ModalDeleteComponent } from './modal-delete/modal-delete.component';
 import { ModalRegisterComponent } from './modal-register/modal-register.component';
-import { ModalLoginErrorComponent } from './modal-login-error/modal-login-error.component';
+import { ModalErrorComponent } from './modal-error/modal-error.component';
 import { ModalUpdatePasswordComponent } from './modal-update-password/modal-update-password.component';
 import { ProfileComponent } from './profile/profile.component';
 
@@ -37,7 +37,7 @@ import { ProfileComponent } from './profile/profile.component';
     CreateUserComponent,
     ModalDeleteComponent,
     ModalRegisterComponent,
-    ModalLoginErrorComponent,
+    ModalErrorComponent,
     ModalUpdatePasswordComponent,
     ProfileComponent
   ],

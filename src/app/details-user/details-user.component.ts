@@ -3,6 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ModalDeleteComponent } from '../modal-delete/modal-delete.component';
+import { ModalErrorComponent } from '../modal-error/modal-error.component';
 import { User } from '../user';
 import { UserService } from '../user.service';
 
@@ -39,7 +40,8 @@ export class DetailsUserComponent implements OnInit {
       this.router.navigateByUrl('/home')
     }
     this.userService.getUserById(this.userId)
-      .subscribe(user => {
+      .subscribe(
+        user => {
         this.user = user,
         this.updateForm.setValue({
           lastnameToUpdate: user.lastName,
@@ -47,6 +49,11 @@ export class DetailsUserComponent implements OnInit {
           emailToUpdate: user.email,
           phoneNumberToUpdate: user.phoneNumber,
         })
+      },
+      error => {
+        const dialogRef = this.dialog.open(ModalErrorComponent, {
+          width: '350px'
+        });
       }
       )
   }
@@ -73,9 +80,16 @@ export class DetailsUserComponent implements OnInit {
       this.updateForm.value.lastnameToUpdate, 
       this.updateForm.value.emailToUpdate, 
       this.updateForm.value.phoneNumberToUpdate)
-        .subscribe(resp => {
+        .subscribe(
+          resp => {
           this.router.navigateByUrl('/home')
-        })
+        },
+        error => {
+          const dialogRef = this.dialog.open(ModalErrorComponent, {
+            width: '350px'
+          });
+        }
+        )
     
   }
 

@@ -3,6 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from '../authentication.service';
+import { ModalErrorComponent } from '../modal-error/modal-error.component';
 import { ModalUpdatePasswordComponent } from '../modal-update-password/modal-update-password.component';
 import { User } from '../user';
 import { UserService } from '../user.service';
@@ -58,8 +59,15 @@ export class ProfileComponent implements OnInit {
       this.profileForm.value.lastname,
       this.profileForm.value.email,
       this.profileForm.value.phoneNumber
-    ).subscribe(resp =>
-        this.router.navigateByUrl('/home')
+    ).subscribe(
+      resp => {
+      this.router.navigateByUrl('/home')
+    },
+      error => {
+        const dialogRef = this.dialog.open(ModalErrorComponent, {
+          width: '350px'
+        });
+      }  
     )
   }
 

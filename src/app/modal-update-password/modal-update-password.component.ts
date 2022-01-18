@@ -3,6 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../authentication.service';
+import { ModalErrorComponent } from '../modal-error/modal-error.component';
 
 @Component({
   selector: 'app-modal-update-password',
@@ -36,8 +37,10 @@ export class ModalUpdatePasswordComponent implements OnInit {
         this.dialogRef.close(),
         this.router.navigateByUrl('/home')
       },
-      resp => {
-        alert('Il y a eu un problème, veuillez réessayer')
+      error => {
+        const dialogRef = this.dialog.open(ModalErrorComponent, {
+          width: '350px'
+        });
       } 
     )
   }

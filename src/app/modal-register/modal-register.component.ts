@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Authentication } from '../authentication';
 import { AuthenticationService } from '../authentication.service';
+import { ModalErrorComponent } from '../modal-error/modal-error.component';
 
 @Component({
   selector: 'app-modal-register',
@@ -16,6 +17,7 @@ export class ModalRegisterComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<ModalRegisterComponent>,
+    public dialog: MatDialog,
     private authService: AuthenticationService,
     private router: Router
   ) { }
@@ -39,10 +41,19 @@ export class ModalRegisterComponent implements OnInit {
       password: this.registerForm.value.password,
     }
     this.authService.register(this.profile)
-      .subscribe(resp => {
+      .subscribe(
+        (resp: any) => {
+        localStorage.setItem('app_token', resp.accessToken),
+        localStorage.setItem('user_id', resp.user._id),
         this.dialogRef.close(),
         this.router.navigateByUrl('/home')
-      })
+      },
+      error => {
+        const dialogRef = this.dialog.open(ModalErrorComponent, {
+          width: '350px'
+        });
+      }
+      )
   }
 
   onNoClick(){

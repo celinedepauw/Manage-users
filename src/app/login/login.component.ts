@@ -3,7 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../authentication.service';
-import { ModalLoginErrorComponent } from '../modal-login-error/modal-login-error.component';
+import { ModalErrorComponent } from '../modal-error/modal-error.component';
 import { ModalRegisterComponent } from '../modal-register/modal-register.component';
 import { ModalUpdatePasswordComponent } from '../modal-update-password/modal-update-password.component';
 
@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
           this.router.navigateByUrl('/home')
         },
         error => {
-          const dialogRef = this.dialog.open(ModalLoginErrorComponent, {
+          const dialogRef = this.dialog.open(ModalErrorComponent, {
             width: '350px'
           });
         } 

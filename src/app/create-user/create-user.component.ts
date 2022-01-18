@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { ModalErrorComponent } from '../modal-error/modal-error.component';
 import { User } from '../user';
 import { UserService } from '../user.service';
 
@@ -16,7 +18,8 @@ export class CreateUserComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private userService: UserService
+    private userService: UserService,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -37,8 +40,15 @@ export class CreateUserComponent implements OnInit {
       phoneNumber: this.createForm.value.phoneNumber 
     }
     this.userService.createNewUser(this.user)
-      .subscribe(resp =>
-        this.router.navigateByUrl('/home')
+      .subscribe(
+        resp => {
+          this.router.navigateByUrl('/home')
+        },
+        error => {
+          const dialogRef = this.dialog.open(ModalErrorComponent, {
+            width: '350px'
+          });
+        }
       )
   }
 
