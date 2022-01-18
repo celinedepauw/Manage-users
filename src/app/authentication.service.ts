@@ -17,4 +17,14 @@ export class AuthenticationService {
       profile
     )
   }
+
+  login(email: string, password: string){
+    return this.http.post(
+      'http://localhost:5000/api/v1/auth/login',
+      {
+        "email": email,
+        "password": password
+      }
+    )
+  }
 }

@@ -1,15 +1,15 @@
 <main class="login-main" fxLayout="column" fxLayoutAlign="start center">
     <img class="login-picture" src="../../assets/images/banniere.png">
-    <form class="login-form" fxLayout="column" >
+    <form [formGroup]="loginForm" class="login-form" fxLayout="column" (ngSubmit)="login()" >
         <mat-form-field>
-            <mat-label>Login</mat-label>
-            <input matInput>
+            <mat-label>Adresse mail</mat-label>
+            <input matInput formControlName="email">
         </mat-form-field>
         <mat-form-field>
             <mat-label>Mot de passe</mat-label>
-            <input matInput>
+            <input matInput formControlName="password" type="password">
         </mat-form-field>
-        <button class="login-form-button" mat-flat-button  type="submit" (click)="goToHomePage()">Connexion</button>
+        <button class="login-form-button" mat-flat-button  type="submit">Connexion</button>
     </form>
     <a class="login-link-to-register" (click)="openModalToRegister()">Vous n'avez pas de compte ? Inscrivez-vous !</a>
 </main>

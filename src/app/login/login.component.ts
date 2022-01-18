@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { AuthenticationService } from '../authentication.service';
 import { ModalRegisterComponent } from '../modal-register/modal-register.component';
 
 @Component({
@@ -10,12 +12,31 @@ import { ModalRegisterComponent } from '../modal-register/modal-register.compone
 })
 export class LoginComponent implements OnInit {
 
+  loginForm!: FormGroup;
+
   constructor(
     private router: Router,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private authService: AuthenticationService
   ) { }
 
   ngOnInit(): void {
+    this.loginForm = new FormGroup({
+      email: new FormControl(''),
+      password: new FormControl('')
+    })
+  }
+
+  login(){
+    this.authService.login(this.loginForm.value.email, this.loginForm.value.password)
+      .subscribe(
+        resp => {
+          this.router.navigateByUrl('/home')
+        },
+        resp => {
+          alert('Erreur de login et/ou de mot de passe')
+        } 
+      )
   }
 
   openModalToRegister(){
