@@ -32,10 +32,11 @@ export class LoginComponent implements OnInit {
   login(){
     this.authService.login(this.loginForm.value.email, this.loginForm.value.password)
       .subscribe(
-        resp => {
+        (resp: any) => {
+          localStorage.setItem('app_token', resp.accessToken)
           this.router.navigateByUrl('/home')
         },
-        resp => {
+        error => {
           const dialogRef = this.dialog.open(ModalLoginErrorComponent, {
             width: '350px'
           });

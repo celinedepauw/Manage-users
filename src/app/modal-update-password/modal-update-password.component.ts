@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../authentication.service';
 
@@ -16,7 +16,8 @@ export class ModalUpdatePasswordComponent implements OnInit {
   constructor(
     private authService: AuthenticationService,
     private router: Router,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    public dialogRef: MatDialogRef<ModalUpdatePasswordComponent>,
   ) { }
 
   ngOnInit(): void {
@@ -32,6 +33,7 @@ export class ModalUpdatePasswordComponent implements OnInit {
       this.updatePasswordForm.value.newPassword
     ).subscribe(
       resp => {
+        this.dialogRef.close(),
         this.router.navigateByUrl('/home')
       },
       resp => {

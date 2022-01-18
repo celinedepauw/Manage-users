@@ -11,7 +11,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptorService } from './authInterceptorService';
+import { AuthenticationService } from './authentication.service';
+import { UserService } from './user.service';
 import { CommonModule } from '@angular/common';
 
 import { AppComponent } from './app.component';
@@ -51,9 +54,17 @@ import { ModalUpdatePasswordComponent } from './modal-update-password/modal-upda
     MatCardModule,
     MatDialogModule,
     HttpClientModule,
-    CommonModule
+    CommonModule,
   ],
-  providers: [],
+  providers: [
+    AuthenticationService,
+    UserService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

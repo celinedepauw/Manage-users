@@ -37,9 +37,9 @@ export class CreateUserComponent implements OnInit {
       phoneNumber: this.createForm.value.phoneNumber 
     }
     this.userService.createNewUser(this.user)
-      .subscribe()
-
-    this.router.navigateByUrl('/home')
+      .subscribe(resp =>
+        this.router.navigateByUrl('/home')
+      )
   }
 
   goBackHome(){
