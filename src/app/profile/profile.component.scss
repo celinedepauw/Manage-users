@@ -10,6 +10,7 @@
     .profile-return-icon{
         width: 50px;
         margin-left: 50%;
+        cursor: pointer;
     }
 
     .profile-title{
@@ -27,13 +28,17 @@
             background-color: black;
             color: white;
             margin: 20px auto;
+
+            &:hover{
+                box-shadow: 5px 5px 5px white;
+            }
         }
     }
 
     .profile-link-to-update-password{
         margin-bottom: 30px;
         text-decoration: underline;
-        cursor: grab;
+        cursor: pointer;
         color: orange;
     }
 }

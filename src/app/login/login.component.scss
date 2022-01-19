@@ -13,6 +13,10 @@
             background-color: black;
             color: white;
             margin: 15px 0;
+
+            &:hover{
+                box-shadow: 5px 5px 5px white;
+            }
         }
     }
 
@@ -20,6 +24,6 @@
         margin-top: 30px;
         text-decoration: underline;
         color: orange;
-        cursor: grab
+        cursor: pointer;
     }
 }
