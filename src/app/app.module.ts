@@ -28,6 +28,7 @@ import { ModalErrorComponent } from './modal-error/modal-error.component';
 import { ModalUpdatePasswordComponent } from './modal-update-password/modal-update-password.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ModalErrorFormComponent } from './modal-error-form/modal-error-form.component';
+import { AddPassionComponent } from './add-passion/add-passion.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { ModalErrorFormComponent } from './modal-error-form/modal-error-form.com
     ModalErrorComponent,
     ModalUpdatePasswordComponent,
     ProfileComponent,
-    ModalErrorFormComponent
+    ModalErrorFormComponent,
+    AddPassionComponent
   ],
   imports: [
     BrowserModule,

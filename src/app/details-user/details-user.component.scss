@@ -1,4 +1,5 @@
 .details-main{
+    margin-bottom: 50px;
 
     .details-picture{
         display: block;
@@ -33,5 +34,22 @@
                 box-shadow: 5px 5px 5px white;
             }
         }
+    }
+}
+
+.details-passions{
+   
+    .details-passions-title{
+        font-size: 2.5rem;
+        margin-bottom: 30px;
+    }
+
+    .mat-flat-button{
+        width: 15%;
+        margin-bottom: 20px;
+    }
+
+    .details-passions-table{
+        
     }
 }

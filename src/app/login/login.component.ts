@@ -38,6 +38,7 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('app_token', resp.accessToken)
           localStorage.setItem('user_id', resp.user._id)
           this.router.navigateByUrl('/home')
+          console.log('token :',localStorage.getItem('app_token'))
         },
         error => {
           const dialogRef = this.dialog.open(ModalErrorComponent, {

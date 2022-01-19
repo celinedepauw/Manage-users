@@ -2,8 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { ModalDeleteComponent } from '../modal-delete/modal-delete.component';
 import { ModalErrorComponent } from '../modal-error/modal-error.component';
+import { Passion } from '../passion';
+import { PassionService } from '../passion.service';
 import { User } from '../user';
 import { UserService } from '../user.service';
 
@@ -18,14 +21,19 @@ export class DetailsUserComponent implements OnInit {
   userId!: string;
   updateForm!: FormGroup;
 
+  passions$!: Observable<Passion[]>;
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private userService: UserService,
+    private passionService: PassionService,
     public dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
+    this.passions$ = this.passionService._passions.asObservable();
+    
     this.updateForm = new FormGroup({
       lastnameToUpdate: new FormControl(''),
       firstnameToUpdate: new FormControl(''),
@@ -56,6 +64,12 @@ export class DetailsUserComponent implements OnInit {
         });
       }
       )
+    this.passionService.getPassionsForUser(this.userId)
+      .subscribe(resp => this.passionService._passions.next(resp))
+  }
+
+  goToAddAPassion(){
+    this.router.navigateByUrl('/add_passion');
   }
 
   /* when deleting a user without confirmation in modal

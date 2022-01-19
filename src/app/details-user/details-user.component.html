@@ -1,4 +1,4 @@
-<main class="details-main" fxLayout="column" fxLayoutAlign="start center">
+<div class="details-main" fxLayout="column" fxLayoutAlign="start center">
     <img class="details-picture" src="../../assets/images/banniere.png">
     <a fxFlexAlign="start" (click)="goBackHome()" title="Retour">
         <img src="../../assets/images/return.png" alt="return to home page" class="details-return-icon" />
@@ -25,6 +25,23 @@
             <button mat-flat-button class="details-form-button" type="submit" (click)="updateUser()">Modifier</button>
             <button mat-flat-button class="details-form-button" type="submit" (click)="openModalForDelete()">Supprimer</button>
         </div>
-        
     </form>
-</main>
+</div>
+<div class="details-passions" fxLayout="column" fxLayoutAlign="center center">
+    <div class="details-passions-title">Passions</div>
+    <button mat-flat-button (click)="goToAddAPassion()">Ajouter une passion</button>
+    <table class="details-passions-table">
+        <tr>
+            <th>Passion</th>
+            <th>Informations</th>
+            <th>Depuis quand ?</th>
+            <th>Exemples</th>
+        </tr>
+        <tr>
+            <td>Football</td>
+            <td>lorem ipsum</td>
+            <td>2017</td>
+            <td>lorem ipsum</td>
+        </tr>
+    </table>
+</div>
