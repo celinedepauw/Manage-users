@@ -36,7 +36,7 @@
                 <tr>
                     <th>Passion</th>
                     <th>Informations</th>
-                    <th>Depuis quand ?</th>
+                    <th>Depuis</th>
                     <th>Exemples</th>
                     <th></th>
                 </tr>
@@ -45,11 +45,11 @@
             <tr *ngFor="let passion of passions$ | async">
                 <td>{{passion.libelle}}</td>
                 <td>{{passion.informations}}</td>
-                <td>{{passion.sinceWhen}}</td>
+                <td>{{getDate(passion.sinceWhen)}}</td>
                 <td>{{passion.examples}}</td>
                 <td fwLayout="raw">
-                    <img class="table-icon" src="../../assets/images/update.png" alt="update_passion" (click)="updatePassion()">
-                    <img class="table-icon" src="../../assets/images/delete.png" alt="delete_passion" (click)="deletePassion(passion._id!)">
+                    <img class="table-icon" title="Modifier la passion" src="../../assets/images/update.png" alt="update_passion" (click)="updatePassion()">
+                    <img class="table-icon" title="Supprimer la passion" src="../../assets/images/delete.png" alt="delete_passion" (click)="deletePassion(passion._id!)">
                 </td>
             </tr>
            </tbody>

@@ -109,6 +109,13 @@ export class DetailsUserComponent implements OnInit {
         )
   }
 
+  getDate(datetime: string){
+    const dateStr = datetime.split('T')
+    const dateArr = dateStr[0].split('-')
+    return `${dateArr[2]}/${dateArr[1]}/${dateArr[0]}`
+    
+  }
+
   updatePassion(){
     console.log('je veux modifier la passion')
   }
