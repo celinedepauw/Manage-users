@@ -30,25 +30,37 @@
 <div class="details-passions" fxLayout="column" fxLayoutAlign="center center">
     <div class="details-passions-title">Passions</div>
     <button mat-flat-button (click)="goToAddAPassion()">Ajouter une passion</button>
-    <div>
-        <div>Liste des passions</div>
-        <ul *ngFor="let passion of passions$ | async">
-            <li>{{passion.libelle}}</li>
-        </ul>
+    <div class="details-passions-table">
+        <table>
+            <thead>
+                <tr>
+                    <th>Passion</th>
+                    <th>Informations</th>
+                    <th>Depuis quand ?</th>
+                    <th>Exemples</th>
+                    <th></th>
+                </tr>
+            </thead>
+           <tbody>
+            <tr *ngFor="let passion of passions$ | async">
+                <td>{{passion.libelle}}</td>
+                <td>{{passion.informations}}</td>
+                <td>{{passion.sinceWhen}}</td>
+                <td>{{passion.examples}}</td>
+                <td fwLayout="raw">
+                    <img class="table-icon" src="../../assets/images/update.png" alt="update_passion" (click)="updatePassion()">
+                    <img class="table-icon" src="../../assets/images/delete.png" alt="delete_passion" (click)="deletePassion(passion._id!)">
+                </td>
+            </tr>
+           </tbody>
+            
+        </table>
     </div>
+    
+    <!--<ul *ngFor="let passion of passions$ | async">
+        <li>{{passion.libelle}}</li>
+    </ul>-->
+    
 
-    <!--<table class="details-passions-table">
-        <tr>
-            <th>Passion</th>
-            <th>Informations</th>
-            <th>Depuis quand ?</th>
-            <th>Exemples</th>
-        </tr>
-        <tr>
-            <td>Football</td>
-            <td>lorem ipsum</td>
-            <td>2017</td>
-            <td>lorem ipsum</td>
-        </tr>
-    </table>-->
+  
 </div>

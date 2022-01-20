@@ -38,6 +38,7 @@ export class AddPassionComponent implements OnInit {
       this.userId = routeParams.get('idUser')!
     else
       this.router.navigateByUrl('/home')
+
   }
 
   addPassion(){
@@ -56,6 +57,7 @@ export class AddPassionComponent implements OnInit {
             actualPassions.push(resp)
             this.passionService._passions.next(actualPassions)
             console.log('passions après :', actualPassions)
+            console.log('reponse :', resp)
             this.router.navigateByUrl(`/users/${this.userId}`)
           }
         )

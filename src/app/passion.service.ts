@@ -19,7 +19,7 @@ export class PassionService {
   }
 
   getPassionsForUser(userId: string): Observable<Passion[]>{
-    return this.http.get<Passion[]>( `http://localhost:5000/api/v1/passions/${userId}`)
+    return this.http.get<Passion[]>(`http://localhost:5000/api/v1/passions/${userId}`)
   }
 
   createPassion(userId: string,passion: Passion): Observable<Passion>{
@@ -31,7 +31,7 @@ export class PassionService {
 
   updatePassion(passionId: string, libelle: string, informations: string, sinceWhen: string, examples: string[]): Observable<Passion>{
     return this.http.patch<Passion>(
-      `http://localhost:5000/api/v1/passion/${passionId}`,
+      `http://localhost:5000/api/v1/passions/${passionId}`,
       {
         "libelle": libelle,
         "informations": informations,
@@ -42,7 +42,7 @@ export class PassionService {
   }
 
   deletePassion(passionId: string){
-    return this.http.delete(`http://localhost:5000/api/v1/passion/${passionId}`)
+    return this.http.delete(`http://localhost:5000/api/v1/passions/${passionId}`)
   }
-  
+
 }

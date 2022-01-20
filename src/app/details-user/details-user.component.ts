@@ -67,7 +67,7 @@ export class DetailsUserComponent implements OnInit {
     this.passionService.getPassionsForUser(this.userId)
       .subscribe(
         resp => {this.passionService._passions.next(resp)},
-        error => {this.passionService._passions.getValue()}
+        error => {console.log('retour réponse erreur :', error)}
         )
   }
 
@@ -107,7 +107,22 @@ export class DetailsUserComponent implements OnInit {
           });
         }
         )
-    
+  }
+
+  updatePassion(){
+    console.log('je veux modifier la passion')
+  }
+
+  deletePassion(passionId: string){
+    console.log('id de la passion :', passionId);
+    this.passionService.deletePassion(passionId).subscribe(
+      resp =>{
+        this.passionService._passions.getValue();
+      },
+      error => {
+
+      }
+    )
   }
 
   goBackHome(){

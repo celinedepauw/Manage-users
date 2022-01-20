@@ -1,5 +1,5 @@
 export interface Passion{
-    id?: string,
+    _id?: string,
     libelle: string,
     informations: string,
     sinceWhen: string,
