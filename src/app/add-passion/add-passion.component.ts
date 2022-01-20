@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { Passion } from '../passion';
 import { PassionService } from '../passion.service';
 
@@ -11,22 +13,34 @@ import { PassionService } from '../passion.service';
 export class AddPassionComponent implements OnInit {
 
   passion!: Passion;
+  passions$!: Observable<Passion[]>;
+  userId!: string;
   passionForm!: FormGroup;
 
   constructor(
+    private route: ActivatedRoute,
+    private router: Router,
     private passionService: PassionService
   ) { }
 
   ngOnInit(): void {
+
+    this.passions$ = this.passionService._passions.asObservable();
+
     this.passionForm = new FormGroup({
       libelle: new FormControl(''),
       informations: new FormControl(''),
       date: new FormControl(''),
       examples: new FormControl('')
-    })
+    });
+    const routeParams = this.route.snapshot.paramMap;
+    if(this.userId !='')
+      this.userId = routeParams.get('idUser')!
+    else
+      this.router.navigateByUrl('/home')
   }
 
-  createPassion(){
+  addPassion(){
     if(this.passionForm.value.libelle != '' && this.passionForm.value.informations != '' && this.passionForm.value.date != ''){
       this.passion = {
         libelle: this.passionForm.value.libelle,
@@ -34,10 +48,22 @@ export class AddPassionComponent implements OnInit {
         sinceWhen: this.passionForm.value.date,
         examples: this.passionForm.value.examples
       }
-      this.passionService.createPassion(localStorage.getItem('user_id')!, this.passion)
-        .subscribe(resp => console.log(resp))
+      this.passionService.createPassion(this.userId, this.passion)
+        .subscribe(
+          resp => {
+            const actualPassions = this.passionService._passions.getValue()
+            console.log('passions avant :', actualPassions)
+            actualPassions.push(resp)
+            this.passionService._passions.next(actualPassions)
+            console.log('passions après :', actualPassions)
+            this.router.navigateByUrl(`/users/${this.userId}`)
+          }
+        )
     }
-    
+  }
+
+  goBackToUser(){
+    this.router.navigateByUrl(`/users/${this.userId}`)
   }
 
 }

@@ -65,11 +65,14 @@ export class DetailsUserComponent implements OnInit {
       }
       )
     this.passionService.getPassionsForUser(this.userId)
-      .subscribe(resp => this.passionService._passions.next(resp))
+      .subscribe(
+        resp => {this.passionService._passions.next(resp)},
+        error => {this.passionService._passions.getValue()}
+        )
   }
 
   goToAddAPassion(){
-    this.router.navigateByUrl('/add_passion');
+    this.router.navigateByUrl(`/add_passion/${this.userId}`);
   }
 
   /* when deleting a user without confirmation in modal

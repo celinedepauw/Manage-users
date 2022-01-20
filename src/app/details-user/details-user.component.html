@@ -30,7 +30,14 @@
 <div class="details-passions" fxLayout="column" fxLayoutAlign="center center">
     <div class="details-passions-title">Passions</div>
     <button mat-flat-button (click)="goToAddAPassion()">Ajouter une passion</button>
-    <table class="details-passions-table">
+    <div>
+        <div>Liste des passions</div>
+        <ul *ngFor="let passion of passions$ | async">
+            <li>{{passion.libelle}}</li>
+        </ul>
+    </div>
+
+    <!--<table class="details-passions-table">
         <tr>
             <th>Passion</th>
             <th>Informations</th>
@@ -43,5 +50,5 @@
             <td>2017</td>
             <td>lorem ipsum</td>
         </tr>
-    </table>
+    </table>-->
 </div>

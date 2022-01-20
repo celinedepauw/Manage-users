@@ -1,10 +1,10 @@
 <main class="add-passion-main" fxLayout="column" fxLayoutAlign="start center">
     <img class="add-passion-picture" src="../../assets/images/banniere.png">
-    <a fxFlexAlign="start" title="Retour">
+    <a (click)="goBackToUser()" fxFlexAlign="start" title="Retour">
         <img src="../../assets/images/return.png" alt="return to home page" class="add-passion-return-icon" />
     </a>
-    <h2 class="add-passion-title">Création d'un nouvel adhérent</h2>
-    <form [formGroup]="passionForm" class="add-passion-form" fxLayout="column" (ngSubmit)="createPassion()">
+    <h2 class="add-passion-title">Création d'une nouvelle passion</h2>
+    <form [formGroup]="passionForm" class="add-passion-form" fxLayout="column" (ngSubmit)="addPassion()">
         <mat-form-field>
             <mat-label>Libellé</mat-label>
             <input matInput formControlName="libelle">
@@ -21,6 +21,6 @@
             <mat-label>Exemples</mat-label>
             <input matInput formControlName="examples">
         </mat-form-field>
-        <button mat-flat-button class="add-passion-form-button" type="submit">Créer</button> 
+        <button mat-flat-button class="add-passion-form-button" type="submit">Enregistrer</button> 
     </form>
 </main>

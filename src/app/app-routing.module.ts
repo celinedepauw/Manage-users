@@ -13,7 +13,7 @@ const routes: Routes = [
   { path: 'users/:idUser', component: DetailsUserComponent },
   { path: 'create', component: CreateUserComponent },
   { path: 'profile/:idUser', component: ProfileComponent},
-  { path: 'add_passion', component: AddPassionComponent },
+  { path: 'add_passion/:idUser', component: AddPassionComponent },
   { path: '**', redirectTo: 'home', pathMatch: 'full'}
 ];
 

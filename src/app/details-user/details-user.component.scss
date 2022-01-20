@@ -46,7 +46,12 @@
 
     .mat-flat-button{
         width: 15%;
+        font-weight: bold;
         margin-bottom: 20px;
+
+        &:hover{
+            box-shadow: 5px 5px 5px black;
+        }
     }
 
     .details-passions-table{
