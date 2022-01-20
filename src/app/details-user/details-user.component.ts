@@ -127,7 +127,7 @@ export class DetailsUserComponent implements OnInit {
         this.passionService._passions.getValue();
       },
       error => {
-
+        console.log(error)
       }
     )
   }

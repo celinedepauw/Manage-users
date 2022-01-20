@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Passion } from '../passion';
 import { PassionService } from '../passion.service';
+import {MatChipInputEvent} from '@angular/material/chips';
 
 @Component({
   selector: 'app-add-passion',
@@ -16,6 +17,8 @@ export class AddPassionComponent implements OnInit {
   passions$!: Observable<Passion[]>;
   userId!: string;
   passionForm!: FormGroup;
+  examples!: string[];
+  addOnBlur = true;
 
   constructor(
     private route: ActivatedRoute,
@@ -24,21 +27,29 @@ export class AddPassionComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-
+    this.examples = [];
     this.passions$ = this.passionService._passions.asObservable();
-
     this.passionForm = new FormGroup({
       libelle: new FormControl(''),
       informations: new FormControl(''),
       date: new FormControl(''),
-      examples: new FormControl('')
+      
     });
     const routeParams = this.route.snapshot.paramMap;
     if(this.userId !='')
       this.userId = routeParams.get('idUser')!
     else
       this.router.navigateByUrl('/home')
+  }
 
+  addExample(event: MatChipInputEvent): void{
+    const example = event.value.trim()
+    console.log('exemple saisi :', example)
+    if(example !=''){
+      this.examples.push(example)
+    }
+    console.log('tableau examples :', this.examples)
+    event.chipInput!.clear();
   }
 
   addPassion(){
@@ -47,8 +58,9 @@ export class AddPassionComponent implements OnInit {
         libelle: this.passionForm.value.libelle,
         informations: this.passionForm.value.informations,
         sinceWhen: this.passionForm.value.date,
-        examples: this.passionForm.value.examples
+        examples: this.examples
       }
+      console.log('passion envoyée : ', this.passion)
       this.passionService.createPassion(this.userId, this.passion)
         .subscribe(
           resp => {

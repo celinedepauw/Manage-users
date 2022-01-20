@@ -11,6 +11,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatChip, MatChipsModule } from '@angular/material/chips';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptorService } from './authInterceptorService';
 import { AuthenticationService } from './authentication.service';
@@ -59,6 +60,7 @@ import { AddPassionComponent } from './add-passion/add-passion.component';
     MatInputModule,
     MatCardModule,
     MatDialogModule,
+    MatChipsModule,
     HttpClientModule,
     CommonModule,
   ],

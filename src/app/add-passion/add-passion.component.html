@@ -19,7 +19,10 @@
         </mat-form-field>
         <mat-form-field>
             <mat-label>Exemples</mat-label>
-            <input matInput formControlName="examples">
+            <mat-chip-list #chipList>
+                <mat-chip *ngFor="let example of examples">{{example}}</mat-chip>
+                <input placeholder="Exemple..." [matChipInputFor]="chipList" [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="addExample($event)">
+            </mat-chip-list>
         </mat-form-field>
         <button mat-flat-button class="add-passion-form-button" type="submit">Enregistrer</button> 
     </form>
