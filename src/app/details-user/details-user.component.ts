@@ -122,9 +122,13 @@ export class DetailsUserComponent implements OnInit {
 
   deletePassion(passionId: string){
     console.log('id de la passion :', passionId);
-    this.passionService.deletePassion(passionId).subscribe(
+    this.passionService.deletePassion(this.userId, passionId).subscribe(
       resp =>{
-        this.passionService._passions.getValue();
+        this.passionService.getPassionsForUser(this.userId)
+      .subscribe(
+        resp2 => {this.passionService._passions.next(resp2)},
+        error => {console.log('retour réponse erreur :', error)}
+        )
       },
       error => {
         console.log(error)

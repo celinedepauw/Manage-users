@@ -41,8 +41,8 @@ export class PassionService {
       )
   }
 
-  deletePassion(passionId: string){
-    return this.http.delete(`http://localhost:5000/api/v1/passions/${passionId}`)
+  deletePassion(userId: string, passionId: string){
+    return this.http.delete(`http://localhost:5000/api/v1/passions/${userId}/${passionId}`)
   }
 
 }

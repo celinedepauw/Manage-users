@@ -45,7 +45,7 @@
             <tr *ngFor="let passion of passions$ | async">
                 <td>{{passion.libelle}}</td>
                 <td>{{passion.informations}}</td>
-                <td>{{passion.sinceWhen}}</td>
+                <td>{{getDate(passion.sinceWhen)}}</td>
                 <td>
                     <ul *ngFor="let example of passion.examples">
                         <li>{{example}}</li>
