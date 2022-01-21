@@ -43,16 +43,16 @@
             </thead>
            <tbody>
             <tr *ngFor="let passion of passions$ | async">
-                <td>{{passion.libelle}}</td>
+                <td>{{getFirstLetterUpper(passion.libelle)}}</td>
                 <td>
                     <ul *ngFor="let info of getInformations(passion.informations)!">
-                        <li>{{info}}</li>
+                        <li>{{getFirstLetterUpper(info)}}</li>
                     </ul>
                 </td>
                 <td>{{getDate(passion.sinceWhen)}}</td>
                 <td>
                     <ul *ngFor="let example of passion.examples">
-                        <li>{{example}}</li>
+                        <li>{{getFirstLetterUpper(example)}}</li>
                     </ul>
                 </td>
                 <td fwLayout="raw">

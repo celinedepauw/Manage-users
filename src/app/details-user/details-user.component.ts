@@ -123,6 +123,10 @@ export class DetailsUserComponent implements OnInit {
     return informations;
   }
 
+  getFirstLetterUpper(string: string){
+    return string.charAt(0).toUpperCase() + string.slice(1)
+  }
+
   goToUpdatePassion(passionId: string){
     this.router.navigateByUrl(`/add_passion/${this.userId}/${passionId}`)
   }
