@@ -48,13 +48,11 @@ export class AddPassionComponent implements OnInit {
           if(!!goodPassion && goodPassion._id){
             this.passion = goodPassion
             this.examplesChips = this.passion.examples
-            console.log('exemples :', this.passion.examples)
             this.passionForm.patchValue({
               libelle: this.passion.libelle,
               informations: this.passion.informations,
               date: this.passion.sinceWhen
             })
-            console.log('exemples 2 :', this.passionForm.value.examples)
           }
           else{
             this.router.navigateByUrl('/home')
@@ -67,11 +65,9 @@ export class AddPassionComponent implements OnInit {
 
   addExample(event: MatChipInputEvent): void{
     const example = event.value.trim()
-    console.log('exemple saisi :', example)
     if(example !=''){
       this.examplesChips.push(example)
     }
-    console.log('tableau examples :', this.examplesChips)
     event.chipInput!.clear();
   }
 
@@ -90,16 +86,14 @@ export class AddPassionComponent implements OnInit {
         sinceWhen: this.passionForm.value.date,
         examples: this.examplesChips
       }
-      console.log('passion envoyée : ', this.passion)
+      console.log('date envoyée : ', this.passionForm.value.date)
       this.passionService.createPassion(this.userId, this.passion)
         .subscribe(
           resp => {
+            console.log('réponse après ajout passion : ', resp)
             const actualPassions = this.passionService._passions.getValue()
-            console.log('passions avant :', actualPassions)
             actualPassions.push(resp)
             this.passionService._passions.next(actualPassions)
-            console.log('passions après :', actualPassions)
-            console.log('reponse :', resp)
             this.router.navigateByUrl(`/users/${this.userId}`)
           }
         )
@@ -107,7 +101,21 @@ export class AddPassionComponent implements OnInit {
   }
 
   updatePassion(){
-    console.log('mise à jour de la passion')
+    if(this.passionForm.value.libelle != '' && this.passionForm.value.informations != '' && this.passionForm.value.date != ''){
+      this.passionService.updatePassion(
+        this.userId,
+        this.passionId,
+        this.passionForm.value.libelle,
+        this.passionForm.value.informations,
+        this.passionForm.value.date,
+        this.examplesChips
+      ).subscribe(
+        resp => {
+          this.router.navigateByUrl(`/users/${this.userId}`)
+        }
+      )
+    }
+    
   }
 
   goBackToUser(){
