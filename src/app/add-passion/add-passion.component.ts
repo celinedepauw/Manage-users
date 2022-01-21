@@ -18,7 +18,7 @@ export class AddPassionComponent implements OnInit {
   passions$!: Observable<Passion[]>;
   userId!: string;
   passionForm!: FormGroup;
-  examples!: string[];
+  examplesChips!: string[];
   title!: string;
   addOnBlur = true;
 
@@ -29,13 +29,14 @@ export class AddPassionComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.examples = [];
+    this.examplesChips = [];
     this.title = 'Création d\'une nouvelle passion';
     this.passions$ = this.passionService._passions.asObservable();
     this.passionForm = new FormGroup({
       libelle: new FormControl(''),
       informations: new FormControl(''),
-      date: new FormControl(''),     
+      date: new FormControl(''),
+      examples: new FormControl('')     
     });
     const routeParams = this.route.snapshot.paramMap;
     if(routeParams.get('idUser')){
@@ -46,13 +47,14 @@ export class AddPassionComponent implements OnInit {
           const goodPassion = this.passionService._passions.getValue().find(passion => this.passionId == passion._id)
           if(!!goodPassion && goodPassion._id){
             this.passion = goodPassion
-            console.log('valeur de date :', new Date(this.passion.sinceWhen))
+            this.examplesChips = this.passion.examples
+            console.log('exemples :', this.passion.examples)
             this.passionForm.patchValue({
               libelle: this.passion.libelle,
               informations: this.passion.informations,
-              date: this.passion.sinceWhen,
-              examples: this.passion.examples
+              date: this.passion.sinceWhen
             })
+            console.log('exemples 2 :', this.passionForm.value.examples)
           }
           else{
             this.router.navigateByUrl('/home')
@@ -67,16 +69,16 @@ export class AddPassionComponent implements OnInit {
     const example = event.value.trim()
     console.log('exemple saisi :', example)
     if(example !=''){
-      this.examples.push(example)
+      this.examplesChips.push(example)
     }
-    console.log('tableau examples :', this.examples)
+    console.log('tableau examples :', this.examplesChips)
     event.chipInput!.clear();
   }
 
   removeExample(example: string){
-    const index = this.examples.indexOf(example);
+    const index = this.examplesChips.indexOf(example);
     if(index >= 0){
-      this.examples.splice(index, 1);
+      this.examplesChips.splice(index, 1);
     }
   }
 
@@ -86,7 +88,7 @@ export class AddPassionComponent implements OnInit {
         libelle: this.passionForm.value.libelle,
         informations: this.passionForm.value.informations,
         sinceWhen: this.passionForm.value.date,
-        examples: this.examples
+        examples: this.examplesChips
       }
       console.log('passion envoyée : ', this.passion)
       this.passionService.createPassion(this.userId, this.passion)

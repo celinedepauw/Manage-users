@@ -23,14 +23,14 @@
             <mat-label>Exemples</mat-label>
             <mat-chip-list #chipList>
                 <mat-chip 
-                    *ngFor="let example of examples"
+                    *ngFor="let example of examplesChips"
                     (removed)="removeExample(example)">
                     {{example}}
                     <button matChipRemove>
                         <mat-icon>cancel</mat-icon>
                     </button>
                 </mat-chip>
-                <input placeholder="Exemple..." [matChipInputFor]="chipList" [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="addExample($event)">
+                <input placeholder="Exemple..." [matChipInputFor]="chipList" [matChipInputAddOnBlur]="addOnBlur" formControlName="examples"(matChipInputTokenEnd)="addExample($event)">
             </mat-chip-list>
         </mat-form-field>
         <button mat-flat-button class="add-passion-form-button" type="submit">Enregistrer</button> 
