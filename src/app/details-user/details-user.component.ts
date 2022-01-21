@@ -52,7 +52,7 @@ export class DetailsUserComponent implements OnInit {
       .subscribe(
         user => {
         this.user = user,
-        this.updateForm.setValue({
+        this.updateForm.patchValue({
           lastnameToUpdate: user.lastName,
           firstnameToUpdate: user.firstName,
           emailToUpdate: user.email,
@@ -76,18 +76,13 @@ export class DetailsUserComponent implements OnInit {
     this.router.navigateByUrl(`/add_passion/${this.userId}`);
   }
 
-  /* when deleting a user without confirmation in modal
-  deleteUser(){
-    this.userService.deleteUser(this.userId)
-      .subscribe(resp => {
-        this.router.navigateByUrl('/home')
-      })
-  }*/
-
-  openModalForDelete(){
+  openModalForDelete(idPassion?: string){
     const dialogRef = this.dialog.open(ModalDeleteComponent, {
       width: '350px',
-      data: {userId: this.userId}
+      data: {
+        userId: this.userId,
+        passionId: idPassion
+      }
     });
   }
 
@@ -127,22 +122,6 @@ export class DetailsUserComponent implements OnInit {
 
   goToUpdatePassion(passionId: string){
     this.router.navigateByUrl(`/add_passion/${this.userId}/${passionId}`)
-  }
-
-  deletePassion(passionId: string){
-    console.log('id de la passion :', passionId);
-    this.passionService.deletePassion(this.userId, passionId).subscribe(
-      resp =>{
-        this.passionService.getPassionsForUser(this.userId)
-      .subscribe(
-        resp2 => {this.passionService._passions.next(resp2)},
-        error => {console.log('retour réponse erreur :', error)}
-        )
-      },
-      error => {
-        console.log(error)
-      }
-    )
   }
 
   goBackHome(){

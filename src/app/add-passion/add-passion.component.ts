@@ -47,7 +47,9 @@ export class AddPassionComponent implements OnInit {
           const goodPassion = this.passionService._passions.getValue().find(passion => this.passionId == passion._id)
           if(!!goodPassion && goodPassion._id){
             this.passion = goodPassion
-            this.examplesChips = this.passion.examples
+            if(this.passion.examples.length >= 2 || (this.passion.examples.length == 1 && this.passion.examples[0] != '')){
+              this.examplesChips = this.passion.examples
+            }
             this.passionForm.patchValue({
               libelle: this.passion.libelle,
               informations: this.passion.informations,

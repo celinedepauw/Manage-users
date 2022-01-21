@@ -12,6 +12,10 @@
         width: 50px;
         margin-left: 50%;
         cursor: pointer;
+
+        &:hover{
+            transform: scale(1.4);
+        }
     }
 
     .details-title{
