@@ -73,6 +73,13 @@ export class AddPassionComponent implements OnInit {
     event.chipInput!.clear();
   }
 
+  removeExample(example: string){
+    const index = this.examples.indexOf(example);
+    if(index >= 0){
+      this.examples.splice(index, 1);
+    }
+  }
+
   addPassion(){
     if(this.passionForm.value.libelle != '' && this.passionForm.value.informations != '' && this.passionForm.value.date != ''){
       this.passion = {
