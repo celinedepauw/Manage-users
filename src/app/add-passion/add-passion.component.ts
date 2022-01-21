@@ -94,10 +94,6 @@ export class AddPassionComponent implements OnInit {
       this.passionService.createPassion(this.userId, this.passion)
         .subscribe(
           resp => {
-            const dateApi = new Date(resp.sinceWhen);
-            console.log('date api : ', dateApi);
-            const dateG =dateApi.toLocaleDateString('fr-FR');
-            console.log('date après transformation :', dateG);
             const actualPassions = this.passionService._passions.getValue()
             actualPassions.push(resp)
             this.passionService._passions.next(actualPassions)

@@ -106,21 +106,22 @@ export class DetailsUserComponent implements OnInit {
   }
 
   getDate(datetime: string){
-    const dateApi = new Date(datetime);
-    return dateApi.toLocaleDateString('fr-FR');
-    /*const dateStr = datetime.split('T')
+    return new Date(datetime).toLocaleDateString('fr-FR');
+  
+    /* Avant d'utiliser DatePicker : quand input type était date :
+    const dateStr = datetime.split('T')
     const dateArr = dateStr[0].split('-')
     return `${dateArr[2]}/${dateArr[1]}/${dateArr[0]}`*/
   }
 
-  /* TODO : afficher les infos avec sauts de ligne tels qu'ils ont été saisis dans le textarea
   getInformations(infos: string){
     const infosArr = infos.split('\n')
+    const informations: string[] = [];
     infosArr.forEach(element => {
-      console.log('élément d\'informations :', element)
-      return element
+      informations.push(element)
     });
-  }*/
+    return informations;
+  }
 
   goToUpdatePassion(passionId: string){
     this.router.navigateByUrl(`/add_passion/${this.userId}/${passionId}`)
