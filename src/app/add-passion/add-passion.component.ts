@@ -6,6 +6,8 @@ import { Passion } from '../passion';
 import { PassionService } from '../passion.service';
 import {MatChipInputEvent} from '@angular/material/chips';
 import { DateAdapter } from '@angular/material/core';
+import { MatDialog } from '@angular/material/dialog';
+import { ModalErrorFormComponent } from '../modal-error-form/modal-error-form.component';
 
 @Component({
   selector: 'app-add-passion',
@@ -22,12 +24,13 @@ export class AddPassionComponent implements OnInit {
   examplesChips!: string[];
   title!: string;
   addOnBlur = true;
+  
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private passionService: PassionService,
-    private dateAdapter: DateAdapter<any>
+    public dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -90,7 +93,6 @@ export class AddPassionComponent implements OnInit {
         sinceWhen: (this.passionForm.value.date),
         examples: this.examplesChips
       }
-      console.log('date envoyée : ', this.passionForm.value.date)
       this.passionService.createPassion(this.userId, this.passion)
         .subscribe(
           resp => {
@@ -100,6 +102,11 @@ export class AddPassionComponent implements OnInit {
             this.router.navigateByUrl(`/users/${this.userId}`)
           }
         )
+    }
+    else{
+      const dialogRef = this.dialog.open(ModalErrorFormComponent, {
+        width: '350px'
+        });
     }
   }
 
@@ -118,7 +125,11 @@ export class AddPassionComponent implements OnInit {
         }
       )
     }
-    
+    else {
+      const dialogRef = this.dialog.open(ModalErrorFormComponent, {
+        width: '350px'
+        });
+    }
   }
 
   goBackToUser(){
