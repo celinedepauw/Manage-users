@@ -5,6 +5,7 @@ import { CreateUserComponent } from './create-user/create-user.component';
 import { DetailsUserComponent } from './details-user/details-user.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
+import { Passion } from './passion';
 import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'create', component: CreateUserComponent },
   { path: 'profile/:idUser', component: ProfileComponent},
   { path: 'add_passion/:idUser', component: AddPassionComponent },
+  { path: 'add_passion/:idUser/:idPassion', component: AddPassionComponent },
   { path: '**', redirectTo: 'home', pathMatch: 'full'}
 ];
 

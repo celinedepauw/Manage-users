@@ -3,20 +3,22 @@
     <a (click)="goBackToUser()" fxFlexAlign="start" title="Retour">
         <img src="../../assets/images/return.png" alt="return to home page" class="add-passion-return-icon" />
     </a>
-    <h2 class="add-passion-title">Création d'une nouvelle passion</h2>
-    <form [formGroup]="passionForm" class="add-passion-form" fxLayout="column" (ngSubmit)="addPassion()">
+    <h2 class="add-passion-title">{{title}}</h2>
+    <form [formGroup]="passionForm" class="add-passion-form" fxLayout="column" (ngSubmit)="passionId ? updatePassion() : addPassion()">
         <mat-form-field>
             <mat-label>Libellé</mat-label>
             <input matInput formControlName="libelle">
         </mat-form-field>
         <mat-form-field>
             <mat-label>Informations</mat-label>
-            <input matInput formControlName="informations">
+            <textarea matInput formControlName="informations"></textarea>
         </mat-form-field>
-        <mat-form-field>
-            <mat-label>Depuis quelle date</mat-label>
-            <input matInput formControlName="date" type="date">
-        </mat-form-field>
+        <mat-form-field (click)="datepicker.open()">
+            <mat-label>Depuis quand ?</mat-label>
+            <input [matDatepicker]="datepicker" formControlName="date" matInput readonly/>
+            <mat-datepicker-toggle [for]="datepicker" matSuffix></mat-datepicker-toggle>
+            <mat-datepicker #datepicker></mat-datepicker>
+          </mat-form-field>
         <mat-form-field>
             <mat-label>Exemples</mat-label>
             <mat-chip-list #chipList>

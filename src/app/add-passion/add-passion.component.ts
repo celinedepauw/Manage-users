@@ -14,10 +14,12 @@ import {MatChipInputEvent} from '@angular/material/chips';
 export class AddPassionComponent implements OnInit {
 
   passion!: Passion;
+  passionId!: string;
   passions$!: Observable<Passion[]>;
   userId!: string;
   passionForm!: FormGroup;
   examples!: string[];
+  title!: string;
   addOnBlur = true;
 
   constructor(
@@ -28,16 +30,35 @@ export class AddPassionComponent implements OnInit {
 
   ngOnInit(): void {
     this.examples = [];
+    this.title = 'Création d\'une nouvelle passion';
     this.passions$ = this.passionService._passions.asObservable();
     this.passionForm = new FormGroup({
       libelle: new FormControl(''),
       informations: new FormControl(''),
-      date: new FormControl(''),
-      
+      date: new FormControl(''),     
     });
     const routeParams = this.route.snapshot.paramMap;
-    if(this.userId !='')
+    if(routeParams.get('idUser')){
       this.userId = routeParams.get('idUser')!
+        if(routeParams.get('idPassion')){
+          this.title = 'Mise à jour de la passion'
+          this.passionId = routeParams.get('idPassion')!
+          const goodPassion = this.passionService._passions.getValue().find(passion => this.passionId == passion._id)
+          if(!!goodPassion && goodPassion._id){
+            this.passion = goodPassion
+            console.log('valeur de date :', new Date(this.passion.sinceWhen))
+            this.passionForm.patchValue({
+              libelle: this.passion.libelle,
+              informations: this.passion.informations,
+              date: this.passion.sinceWhen,
+              examples: this.passion.examples
+            })
+          }
+          else{
+            this.router.navigateByUrl('/home')
+          }        
+        }
+    }
     else
       this.router.navigateByUrl('/home')
   }
@@ -74,6 +95,10 @@ export class AddPassionComponent implements OnInit {
           }
         )
     }
+  }
+
+  updatePassion(){
+    console.log('mise à jour de la passion')
   }
 
   goBackToUser(){

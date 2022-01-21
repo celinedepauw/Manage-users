@@ -29,9 +29,9 @@ export class PassionService {
       )
   }
 
-  updatePassion(passionId: string, libelle: string, informations: string, sinceWhen: string, examples: string[]): Observable<Passion>{
+  updatePassion(userId: string, passionId: string, libelle: string, informations: string, sinceWhen: string, examples: string[]): Observable<Passion>{
     return this.http.patch<Passion>(
-      `http://localhost:5000/api/v1/passions/${passionId}`,
+      `http://localhost:5000/api/v1/passions/${userId}/${passionId}`,
       {
         "libelle": libelle,
         "informations": informations,

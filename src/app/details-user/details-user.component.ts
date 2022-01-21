@@ -3,6 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { find } from 'rxjs/operators';
 import { ModalDeleteComponent } from '../modal-delete/modal-delete.component';
 import { ModalErrorComponent } from '../modal-error/modal-error.component';
 import { Passion } from '../passion';
@@ -113,11 +114,19 @@ export class DetailsUserComponent implements OnInit {
     const dateStr = datetime.split('T')
     const dateArr = dateStr[0].split('-')
     return `${dateArr[2]}/${dateArr[1]}/${dateArr[0]}`
-    
   }
 
-  updatePassion(){
-    console.log('je veux modifier la passion')
+  /* TODO : afficher les infos avec sauts de ligne tels qu'ils ont été saisis dans le textarea
+  getInformations(infos: string){
+    const infosArr = infos.split('\n')
+    infosArr.forEach(element => {
+      console.log('élément d\'informations :', element)
+      return element
+    });
+  }*/
+
+  goToUpdatePassion(passionId: string){
+    this.router.navigateByUrl(`/add_passion/${this.userId}/${passionId}`)
   }
 
   deletePassion(passionId: string){
