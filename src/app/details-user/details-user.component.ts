@@ -106,9 +106,11 @@ export class DetailsUserComponent implements OnInit {
   }
 
   getDate(datetime: string){
-    const dateStr = datetime.split('T')
+    const dateApi = new Date(datetime);
+    return dateApi.toLocaleDateString('fr-FR');
+    /*const dateStr = datetime.split('T')
     const dateArr = dateStr[0].split('-')
-    return `${dateArr[2]}/${dateArr[1]}/${dateArr[0]}`
+    return `${dateArr[2]}/${dateArr[1]}/${dateArr[0]}`*/
   }
 
   /* TODO : afficher les infos avec sauts de ligne tels qu'ils ont été saisis dans le textarea

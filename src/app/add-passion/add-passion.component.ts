@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { Passion } from '../passion';
 import { PassionService } from '../passion.service';
 import {MatChipInputEvent} from '@angular/material/chips';
+import { DateAdapter } from '@angular/material/core';
 
 @Component({
   selector: 'app-add-passion',
@@ -25,7 +26,8 @@ export class AddPassionComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private passionService: PassionService
+    private passionService: PassionService,
+    private dateAdapter: DateAdapter<any>
   ) { }
 
   ngOnInit(): void {
@@ -85,14 +87,17 @@ export class AddPassionComponent implements OnInit {
       this.passion = {
         libelle: this.passionForm.value.libelle,
         informations: this.passionForm.value.informations,
-        sinceWhen: this.passionForm.value.date,
+        sinceWhen: (this.passionForm.value.date),
         examples: this.examplesChips
       }
       console.log('date envoyée : ', this.passionForm.value.date)
       this.passionService.createPassion(this.userId, this.passion)
         .subscribe(
           resp => {
-            console.log('réponse après ajout passion : ', resp)
+            const dateApi = new Date(resp.sinceWhen);
+            console.log('date api : ', dateApi);
+            const dateG =dateApi.toLocaleDateString('fr-FR');
+            console.log('date après transformation :', dateG);
             const actualPassions = this.passionService._passions.getValue()
             actualPassions.push(resp)
             this.passionService._passions.next(actualPassions)
