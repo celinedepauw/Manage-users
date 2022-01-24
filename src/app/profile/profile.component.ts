@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthenticationService } from '../authentication.service';
-import { ModalErrorComponent } from '../modal-error/modal-error.component';
-import { ModalUpdatePasswordComponent } from '../modal-update-password/modal-update-password.component';
-import { User } from '../user';
-import { UserService } from '../user.service';
+import { AuthenticationService } from '../auth/authentication.service';
+import { ModalErrorComponent } from '../shared/modal-error/modal-error.component';
+import { ModalUpdatePasswordComponent } from '../auth/modal-update-password/modal-update-password.component';
+import { User } from '../users/user';
+import { UserService } from '../users/services/user.service';
 
 @Component({
   selector: 'app-profile',
@@ -43,7 +43,7 @@ export class ProfileComponent implements OnInit {
     this.userService.getUserById(this.profileId)
       .subscribe(user => {
         this.profile = user,
-        this.profileForm.setValue({
+        this.profileForm.patchValue({
           lastname: user.lastName,
           firstname: user.firstName,
           email: user.email,
@@ -52,6 +52,7 @@ export class ProfileComponent implements OnInit {
       })
   }
 
+  // mettre this.profileForm.value dans updateProfile()
   updateProfile(){
     this.authService.updateProfile(
       this.profileId,
@@ -65,7 +66,10 @@ export class ProfileComponent implements OnInit {
     },
       error => {
         const dialogRef = this.dialog.open(ModalErrorComponent, {
-          width: '350px'
+          width: '35%',
+          data: {
+            message: 'Le profil n\'a pas pu être mis à jour'
+          }
         });
       }  
     )
@@ -79,12 +83,24 @@ export class ProfileComponent implements OnInit {
 
   openModalToUpdatePassword(){
     const dialogRef = this.dialog.open(ModalUpdatePasswordComponent, {
-      width: '350px',
+      width: '35%',
     });
+    dialogRef.componentInstance.updateEmitter.subscribe((data: {previous: string, current: string}) => {
+      this.authService.updatePassword(data.previous, data.current)
+        .subscribe(
+          resp => {
+            close();
+            this.router.navigateByUrl('/home')
+          },
+          error => {
+            const dialogRef = this.dialog.open(ModalErrorComponent, {
+              width: '35%',
+              data: {
+                message: 'Le mot de passe n\'a pas pu être mis à jour'
+              }
+            });
+          }
+        )
+    })
   }
-
-  goBackHome(){
-    this.router.navigateByUrl('/home')
-  }
-
 }

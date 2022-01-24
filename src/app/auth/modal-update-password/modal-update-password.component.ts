@@ -1,10 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../authentication.service';
-import { ModalErrorFormComponent } from '../modal-error-form/modal-error-form.component';
-import { ModalErrorComponent } from '../modal-error/modal-error.component';
+import { ModalErrorComponent } from '../../shared/modal-error/modal-error.component';
 
 @Component({
   selector: 'app-modal-update-password',
@@ -12,6 +11,8 @@ import { ModalErrorComponent } from '../modal-error/modal-error.component';
   styleUrls: ['./modal-update-password.component.scss']
 })
 export class ModalUpdatePasswordComponent implements OnInit {
+
+  @Output() updateEmitter = new EventEmitter<{previous: string, current: string}>();
 
   updatePasswordForm!: FormGroup;
 
@@ -24,13 +25,24 @@ export class ModalUpdatePasswordComponent implements OnInit {
 
   ngOnInit(): void {
     this.updatePasswordForm = new FormGroup({
-      previousPassword: new FormControl(''),
-      newPassword: new FormControl('')
+      previousPassword: new FormControl('', Validators.required),
+      newPassword: new FormControl('', Validators.required)
     })
   }
 
   updatePassword(){
-    if( this.updatePasswordForm.value.previousPassword != '' && this.updatePasswordForm.value.newPassword != ''){
+    if(this.updatePasswordForm.valid){
+      this.updateEmitter.emit(this.updatePasswordForm.value)
+    }
+    else {
+      const dialogRef = this.dialog.open(ModalErrorComponent, {
+        width: '350px',
+        data: {
+          message: 'Veuillez remplir tous les champs'
+        }
+        });
+    }
+    /*if( this.updatePasswordForm.value.previousPassword != '' && this.updatePasswordForm.value.newPassword != ''){
       this.authService.updatePassword(
         this.updatePasswordForm.value.previousPassword,
         this.updatePasswordForm.value.newPassword
@@ -41,7 +53,7 @@ export class ModalUpdatePasswordComponent implements OnInit {
         },
         error => {
           const dialogRef = this.dialog.open(ModalErrorComponent, {
-            width: '350px'
+            width: '35%'
           });
         } 
       )
@@ -50,6 +62,6 @@ export class ModalUpdatePasswordComponent implements OnInit {
       const dialogRef = this.dialog.open(ModalErrorFormComponent, {
         width: '350px'
         });
-    }
+    }*/
   }
 }

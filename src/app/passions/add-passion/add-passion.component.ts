@@ -7,7 +7,7 @@ import { PassionService } from '../passion.service';
 import {MatChipInputEvent} from '@angular/material/chips';
 import { DateAdapter } from '@angular/material/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ModalErrorFormComponent } from '../modal-error-form/modal-error-form.component';
+import { ModalErrorComponent } from 'src/app/shared/modal-error/modal-error.component';
 
 @Component({
   selector: 'app-add-passion',
@@ -104,8 +104,11 @@ export class AddPassionComponent implements OnInit {
         )
     }
     else{
-      const dialogRef = this.dialog.open(ModalErrorFormComponent, {
-        width: '350px'
+      const dialogRef = this.dialog.open(ModalErrorComponent, {
+        width: '350px',
+        data: {
+          message: 'Veuillez remplir tous les champs'
+        }
         });
     }
   }
@@ -126,8 +129,11 @@ export class AddPassionComponent implements OnInit {
       )
     }
     else {
-      const dialogRef = this.dialog.open(ModalErrorFormComponent, {
-        width: '350px'
+      const dialogRef = this.dialog.open(ModalErrorComponent, {
+        width: '350px',
+        data: {
+          message: 'Veuillez remplir tous les champs'
+        }
         });
     }
   }

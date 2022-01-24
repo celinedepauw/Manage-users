@@ -1,11 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Authentication } from '../authentication';
 import { AuthenticationService } from '../authentication.service';
-import { ModalErrorFormComponent } from '../modal-error-form/modal-error-form.component';
-import { ModalErrorComponent } from '../modal-error/modal-error.component';
+import { ModalErrorComponent } from '../../shared/modal-error/modal-error.component';
 
 @Component({
   selector: 'app-modal-register',
@@ -15,6 +14,7 @@ import { ModalErrorComponent } from '../modal-error/modal-error.component';
 export class ModalRegisterComponent implements OnInit {
   registerForm!: FormGroup;
   profile!: Authentication;
+  @Output() profileEmitter = new EventEmitter<Authentication>();
 
   constructor(
     public dialogRef: MatDialogRef<ModalRegisterComponent>,
@@ -25,16 +25,29 @@ export class ModalRegisterComponent implements OnInit {
 
   ngOnInit(): void {
     this.registerForm = new FormGroup({
-      lastname: new FormControl(''),
-      firstname: new FormControl(''),
-      email: new FormControl(''),
-      phoneNumber: new FormControl(''),
-      password: new FormControl('')
+      lastname: new FormControl('', [Validators.required]),
+      firstname: new FormControl('', [Validators.required]),
+      email: new FormControl('', [Validators.required, Validators.email]),
+      phoneNumber: new FormControl('', [Validators.required]),
+      password: new FormControl('', [Validators.required])
     })
   }
 
   registerProfile(){
-    if(this.registerForm.value.firstname !='' && this.registerForm.value.lastname !='' && this.registerForm.value.email != '' && this.registerForm.value.phoneNumber != '' && this.registerForm.value.password != ''){
+    if(this.registerForm.valid){
+      this.profileEmitter.emit(this.registerForm.value);
+    }
+    else {
+      const dialogRef = this.dialog.open(ModalErrorComponent, {
+        width: '35%',
+        data: {
+          message: 'Veuillez remplir tous les champs'
+        }
+      });
+    }
+    
+    /*if(this.registerForm.value.firstname !='' && this.registerForm.value.lastname !='' && this.registerForm.value.email != '' && this.registerForm.value.phoneNumber != '' && this.registerForm.value.password != ''){
+      //le formgroup possède déjà tous les champs, this.profile inutile du coup
       this.profile = {
         firstName: this.registerForm.value.firstname,
         lastName: this.registerForm.value.lastname,
@@ -42,6 +55,7 @@ export class ModalRegisterComponent implements OnInit {
         phoneNumber: this.registerForm.value.phoneNumber,
         password: this.registerForm.value.password,
       }
+     
       this.authService.register(this.profile)
         .subscribe(
           (resp: any) => {
@@ -55,17 +69,12 @@ export class ModalRegisterComponent implements OnInit {
             width: '350px'
           });
         }
-        )
+      )
     }
     else {
       const dialogRef = this.dialog.open(ModalErrorFormComponent, {
         width: '350px'
         });
-    }
-    
-  }
-
-  onNoClick(){
-    this.dialogRef.close();
+    }*/
   }
 }

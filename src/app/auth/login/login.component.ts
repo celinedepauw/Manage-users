@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../authentication.service';
-import { ModalErrorFormComponent } from '../modal-error-form/modal-error-form.component';
-import { ModalErrorComponent } from '../modal-error/modal-error.component';
+import { ModalErrorComponent } from '../../shared/modal-error/modal-error.component';
 import { ModalRegisterComponent } from '../modal-register/modal-register.component';
-import { ModalUpdatePasswordComponent } from '../modal-update-password/modal-update-password.component';
 
 @Component({
   selector: 'app-login',
@@ -25,13 +23,14 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({
-      email: new FormControl(''),
-      password: new FormControl('')
+      email: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', [Validators.required])
     })
   }
 
   login(){
-    if(this.loginForm.value.email != '' && this.loginForm.value.password != ''){
+    if(this.loginForm.valid){
+      // TODO dans .login() : mettre this.loginForm.value
       this.authService.login(this.loginForm.value.email, this.loginForm.value.password)
       .subscribe(
         (resp: any) => {
@@ -42,27 +41,47 @@ export class LoginComponent implements OnInit {
         },
         error => {
           const dialogRef = this.dialog.open(ModalErrorComponent, {
-            width: '350px'
+            width: '35%',
+            data: {
+              message: 'Il y a eu une erreur, veuillez réessayer'
+            }
           });
         } 
       )
-    }
+      }
     else{
-      const dialogRef = this.dialog.open(ModalErrorFormComponent, {
-      width: '350px'
+      const dialogRef = this.dialog.open(ModalErrorComponent, {
+      width: '35%',
+      data: {
+        message: 'Veuillez remplir tous les champs'
+      }
       });
     }
-    
   }
 
   openModalToRegister(){
     const dialogRef = this.dialog.open(ModalRegisterComponent, {
-      width: '350px',
+      width: '35%',
     });
+    dialogRef.componentInstance.profileEmitter.subscribe(
+      form => {
+        this.authService.register(form).subscribe(
+          (resp: any) => {
+          localStorage.setItem('app_token', resp.accessToken),
+          localStorage.setItem('user_id', resp.user._id),
+          close(),
+          this.router.navigateByUrl('/home')
+      },
+      error => {
+        const dialogRef = this.dialog.open(ModalErrorComponent, {
+          width: '35%',
+          data: {
+            message: 'Il y a eu une erreur, veuillez réessayer'
+          }
+        });
+      }
+    )       
+      }
+    );
   }
-
-  goToHomePage(){
-    this.router.navigateByUrl('/home')
-  }
-
 }

@@ -9,7 +9,7 @@
             <mat-label>Mot de passe</mat-label>
             <input matInput formControlName="password" type="password">
         </mat-form-field>
-        <button class="login-form-button" mat-flat-button  type="submit">Connexion</button>
+        <button class="login-form-button" mat-flat-button [disabled]="loginForm.valid" type="submit">Connexion</button>
     </form>
     <a class="login-link-to-register" (click)="openModalToRegister()">Vous n'avez pas de compte ? Inscrivez-vous !</a>
 </main>

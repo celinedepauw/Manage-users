@@ -16,23 +16,22 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AuthInterceptorService } from './authInterceptorService';
-import { AuthenticationService } from './authentication.service';
-import { UserService } from './user.service';
+import { AuthInterceptorService } from './shared/utils/authInterceptorService';
+import { AuthenticationService } from './auth/authentication.service';
+import { UserService } from './users/services/user.service';
 import { CommonModule } from '@angular/common';
 
 import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
+import { LoginComponent } from './auth/login/login.component';
 import { HomeComponent } from './home/home.component';
-import { DetailsUserComponent } from './details-user/details-user.component';
-import { CreateUserComponent } from './create-user/create-user.component';
-import { ModalDeleteComponent } from './modal-delete/modal-delete.component';
-import { ModalRegisterComponent } from './modal-register/modal-register.component';
-import { ModalErrorComponent } from './modal-error/modal-error.component';
-import { ModalUpdatePasswordComponent } from './modal-update-password/modal-update-password.component';
+import { DetailsUserComponent } from './users/details-user/details-user.component';
+import { CreateUserComponent } from './users/create-user/create-user.component';
+import { ModalDeleteComponent } from './shared/modal-delete/modal-delete.component';
+import { ModalRegisterComponent } from './auth/modal-register/modal-register.component';
+import { ModalErrorComponent } from './shared/modal-error/modal-error.component';
+import { ModalUpdatePasswordComponent } from './auth/modal-update-password/modal-update-password.component';
 import { ProfileComponent } from './profile/profile.component';
-import { ModalErrorFormComponent } from './modal-error-form/modal-error-form.component';
-import { AddPassionComponent } from './add-passion/add-passion.component';
+import { AddPassionComponent } from './passions/add-passion/add-passion.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +45,6 @@ import { AddPassionComponent } from './add-passion/add-passion.component';
     ModalErrorComponent,
     ModalUpdatePasswordComponent,
     ProfileComponent,
-    ModalErrorFormComponent,
     AddPassionComponent
   ],
   imports: [

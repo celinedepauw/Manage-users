@@ -1,0 +1,9 @@
+<h2 mat-dialog-title>{{data.typeOfModal}}</h2>
+<div mat-dialog-content>
+    {{data.title}}
+</div>
+<div mat-dialog-actions fxLayoutAlign="center" fxLayout=row fxLayoutGap="1rem">
+    <button mat-button (click)="confirmEmitter.emit()">Oui</button>
+    <button mat-button mat-dialog-close>Non</button>
+</div>
+

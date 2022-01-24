@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { ModalErrorFormComponent } from '../modal-error-form/modal-error-form.component';
-import { ModalErrorComponent } from '../modal-error/modal-error.component';
+import { ModalErrorComponent } from '../../shared/modal-error/modal-error.component';
 import { User } from '../user';
-import { UserService } from '../user.service';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-create-user',
@@ -25,15 +24,15 @@ export class CreateUserComponent implements OnInit {
 
   ngOnInit(): void {
     this.createForm = new FormGroup({
-      lastname: new FormControl(''),
-      firstname: new FormControl(''),
-      email: new FormControl(''),
-      phoneNumber: new FormControl('')
+      lastname: new FormControl('', [Validators.required]),
+      firstname: new FormControl('', [Validators.required]),
+      email: new FormControl('', [Validators.required]),
+      phoneNumber: new FormControl('', [Validators.required])
     })
   }
 
   createUser(){
-    if(this.createForm.value.firstname != '' && this.createForm.value.lastname != '' && this.createForm.value.email != '' && this.createForm.value.phoneNumber != ''){
+    if(this.createForm.valid){
       this.user = {
         firstName: this.createForm.value.firstname,
         lastName: this.createForm.value.lastname,
@@ -48,20 +47,23 @@ export class CreateUserComponent implements OnInit {
           },
           error => {
             const dialogRef = this.dialog.open(ModalErrorComponent, {
-              width: '350px'
+              width: '35%',
+              data: {
+                message: 'L\'adhérent n\'a pas pu être créé'
+              }
             });
           }
         )
     }
-   else{
-    const dialogRef = this.dialog.open(ModalErrorFormComponent, {
-      width: '350px'
+   else {
+    this.createForm.markAllAsTouched();
+    const dialogRef = this.dialog.open(ModalErrorComponent, {
+      width: '35%',
+      data: {
+        message: 'Veuillez remplir tous les champs'
+      }
       });
    }
-  }
-
-  goBackHome(){
-    this.router.navigateByUrl('/home')
   }
 
   /*createUser(){

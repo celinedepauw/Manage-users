@@ -3,13 +3,12 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { find } from 'rxjs/operators';
-import { ModalDeleteComponent } from '../modal-delete/modal-delete.component';
-import { ModalErrorComponent } from '../modal-error/modal-error.component';
-import { Passion } from '../passion';
-import { PassionService } from '../passion.service';
+import { ModalDeleteComponent } from '../../shared/modal-delete/modal-delete.component';
+import { ModalErrorComponent } from '../../shared/modal-error/modal-error.component';
+import { Passion } from '../../passions/passion';
+import { PassionService } from '../../passions/passion.service';
 import { User } from '../user';
-import { UserService } from '../user.service';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-details-user',
@@ -61,7 +60,10 @@ export class DetailsUserComponent implements OnInit {
       },
       error => {
         const dialogRef = this.dialog.open(ModalErrorComponent, {
-          width: '350px'
+          width: '35%',
+          data: {
+            message: 'Il y a eu une erreur, veuillez réessayer'
+          }
         });
       }
       )
@@ -78,12 +80,55 @@ export class DetailsUserComponent implements OnInit {
 
   openModalForDelete(idPassion?: string){
     const dialogRef = this.dialog.open(ModalDeleteComponent, {
-      width: '350px',
+      width: '35%',
       data: {
+        title: idPassion ? 'Passion' : 'Utilisateur',
+        typeOfModal: 'Suppression',
         userId: this.userId,
-        passionId: idPassion
+        passionId: idPassion,
       }
     });
+    dialogRef.componentInstance.confirmEmitter.subscribe(
+      () => {
+        if(idPassion){
+          this.passionService.deletePassion(this.userId, idPassion).subscribe(
+            resp =>{
+              close();
+              this.passionService.getPassionsForUser(this.userId)
+            .subscribe(
+              resp2 => {this.passionService._passions.next(resp2)},
+              error => {console.log('retour réponse erreur :', error)}
+              )
+            },
+            error => {
+              const dialogRef = this.dialog.open(ModalErrorComponent, {
+                width: '35%',
+                data: {
+                  message: 'La passion n\'a pas pu être supprimée'
+                }
+              });
+            }
+          )
+        }
+        else {
+          this.userService.deleteUser(this.userId)
+          .subscribe(
+            resp => {
+            close();
+            this.router.navigateByUrl('/home')
+          },
+          error => {
+            const dialogRef = this.dialog.open(ModalErrorComponent, {
+              width: '35%',
+              data: {
+                message: 'L\'adhérent n\'a pas pu être supprimé'
+              }
+            });
+          }
+          )
+        } 
+      }
+    )
   }
 
   updateUser(){
@@ -99,7 +144,10 @@ export class DetailsUserComponent implements OnInit {
         },
         error => {
           const dialogRef = this.dialog.open(ModalErrorComponent, {
-            width: '350px'
+            width: '35%',
+            data: {
+              message: 'L\'adhérent n\'a pas pu être mis à jour'
+            }
           });
         }
         )
@@ -131,9 +179,5 @@ export class DetailsUserComponent implements OnInit {
     this.router.navigateByUrl(`/add_passion/${this.userId}/${passionId}`)
   }
 
-  goBackHome(){
-    this.router.navigateByUrl('/home')
-  }
-   
 }
 

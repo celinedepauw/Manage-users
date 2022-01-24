@@ -1,6 +1,10 @@
-<h2 mat-dialog-title>Création de compte</h2>
-<div mat-dialog-content>
-    <form [formGroup]="registerForm" fxLayout="column">
+<main class="create-user-main" fxLayout="column" fxLayoutAlign="start center">
+    <img class="create-user-picture" src="../../assets/images/banniere.png">
+    <a fxFlexAlign="start" routerLink="/home" title="Retour">
+        <img src="../../assets/images/return.png" alt="return to home page" class="create-user-return-icon" />
+    </a>
+    <h2 class="create-user-title">Création d'un nouvel adhérent</h2>
+    <form [formGroup]="createForm" class="create-user-form" fxLayout="column" (ngSubmit)="createUser()">
         <mat-form-field>
             <mat-label>Nom</mat-label>
             <input matInput formControlName="lastname">
@@ -17,14 +21,6 @@
             <mat-label>Numéro de téléphone</mat-label>
             <input matInput formControlName="phoneNumber">
         </mat-form-field>
-        <mat-form-field>
-            <mat-label>Mot de passe</mat-label>
-            <input matInput formControlName="password" type="password">
-        </mat-form-field>
+        <button mat-flat-button class="create-user-form-button" type="submit">Créer</button> 
     </form>
-</div>
-<div mat-dialog-actions fxLayoutAlign="center">
-    <button mat-button (click)="registerProfile()">Enregister</button>
-    <button mat-button (click)="onNoClick()">Annuler</button>
-</div>
-
+</main>

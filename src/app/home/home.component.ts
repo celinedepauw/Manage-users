@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { User } from '../user';
-import { UserService } from '../user.service';
+import { User } from '../users/user';
+import { UserService } from '../users/services/user.service';
 
 @Component({
   selector: 'app-home',
@@ -29,13 +29,5 @@ export class HomeComponent implements OnInit {
 
   goToProfile(){
     this.router.navigateByUrl(`/profile/${localStorage.getItem('user_id')}`)
-  }
-
-  goToUser(id: string){
-    this.router.navigateByUrl(`/users/${id}`)
-  }
-
-  goToCreateUser(){
-    this.router.navigateByUrl('/create')
   }
 }

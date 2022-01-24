@@ -1,6 +1,6 @@
 import { TOUCH_BUFFER_MS } from '@angular/cdk/a11y/input-modality/input-modality-detector';
-import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-modal-error',
@@ -10,13 +10,10 @@ import { MatDialogRef } from '@angular/material/dialog';
 export class ModalErrorComponent implements OnInit {
 
   constructor(
-    public dialogRef: MatDialogRef<ModalErrorComponent>,
+    //public dialogRef: MatDialogRef<ModalErrorComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: {message: string}
   ) { }
 
   ngOnInit(): void {
-  }
-
-  retry(){
-    this.dialogRef.close()
   }
 }
