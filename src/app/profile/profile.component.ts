@@ -85,11 +85,12 @@ export class ProfileComponent implements OnInit {
     const dialogRef = this.dialog.open(ModalUpdatePasswordComponent, {
       width: '35%',
     });
-    dialogRef.componentInstance.updateEmitter.subscribe((data: {previous: string, current: string}) => {
-      this.authService.updatePassword(data.previous, data.current)
+    dialogRef.componentInstance.updateEmitter.subscribe((data: {previousPassword: string, newPassword: string}) => {
+      console.log('modif mdp', data)
+      this.authService.updatePassword(data.previousPassword, data.newPassword)
         .subscribe(
           resp => {
-            close();
+            this.dialog.closeAll();
             this.router.navigateByUrl('/home')
           },
           error => {

@@ -12,7 +12,7 @@ import { ModalErrorComponent } from '../../shared/modal-error/modal-error.compon
 })
 export class ModalUpdatePasswordComponent implements OnInit {
 
-  @Output() updateEmitter = new EventEmitter<{previous: string, current: string}>();
+  @Output() updateEmitter = new EventEmitter<{previousPassword: string, newPassword: string}>();
 
   updatePasswordForm!: FormGroup;
 
@@ -32,9 +32,11 @@ export class ModalUpdatePasswordComponent implements OnInit {
 
   updatePassword(){
     if(this.updatePasswordForm.valid){
+      console.log('formulaire', this.updatePasswordForm.value)
       this.updateEmitter.emit(this.updatePasswordForm.value)
     }
     else {
+      this.updatePasswordForm.markAllAsTouched();
       const dialogRef = this.dialog.open(ModalErrorComponent, {
         width: '350px',
         data: {

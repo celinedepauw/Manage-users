@@ -26,7 +26,7 @@ export class UserService {
   }
 
   createNewUser(user: User): Observable<User>{
-    //console.log('user avant endpoint : ', user);
+    console.log('user avant endpoint : ', user);
     return this.http.post<User>(
       'http://localhost:5000/api/v1/users',
       user,

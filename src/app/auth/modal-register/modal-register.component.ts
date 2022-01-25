@@ -25,9 +25,9 @@ export class ModalRegisterComponent implements OnInit {
 
   ngOnInit(): void {
     this.registerForm = new FormGroup({
-      lastname: new FormControl('', [Validators.required]),
-      firstname: new FormControl('', [Validators.required]),
-      email: new FormControl('', [Validators.required, Validators.email]),
+      lastName: new FormControl('', [Validators.required]),
+      firstName: new FormControl('', [Validators.required]),
+      email: new FormControl('', [Validators.required]),
       phoneNumber: new FormControl('', [Validators.required]),
       password: new FormControl('', [Validators.required])
     })
@@ -38,6 +38,7 @@ export class ModalRegisterComponent implements OnInit {
       this.profileEmitter.emit(this.registerForm.value);
     }
     else {
+      this.registerForm.markAllAsTouched();
       const dialogRef = this.dialog.open(ModalErrorComponent, {
         width: '35%',
         data: {
@@ -45,36 +46,5 @@ export class ModalRegisterComponent implements OnInit {
         }
       });
     }
-    
-    /*if(this.registerForm.value.firstname !='' && this.registerForm.value.lastname !='' && this.registerForm.value.email != '' && this.registerForm.value.phoneNumber != '' && this.registerForm.value.password != ''){
-      //le formgroup possède déjà tous les champs, this.profile inutile du coup
-      this.profile = {
-        firstName: this.registerForm.value.firstname,
-        lastName: this.registerForm.value.lastname,
-        email: this.registerForm.value.email,
-        phoneNumber: this.registerForm.value.phoneNumber,
-        password: this.registerForm.value.password,
-      }
-     
-      this.authService.register(this.profile)
-        .subscribe(
-          (resp: any) => {
-          localStorage.setItem('app_token', resp.accessToken),
-          localStorage.setItem('user_id', resp.user._id),
-          this.dialogRef.close(),
-          this.router.navigateByUrl('/home')
-        },
-        error => {
-          const dialogRef = this.dialog.open(ModalErrorComponent, {
-            width: '350px'
-          });
-        }
-      )
-    }
-    else {
-      const dialogRef = this.dialog.open(ModalErrorFormComponent, {
-        width: '350px'
-        });
-    }*/
   }
 }

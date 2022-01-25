@@ -23,14 +23,13 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({
-      email: new FormControl('', [Validators.required, Validators.email]),
+      email: new FormControl('', [Validators.required]),
       password: new FormControl('', [Validators.required])
     })
   }
 
   login(){
     if(this.loginForm.valid){
-      // TODO dans .login() : mettre this.loginForm.value
       this.authService.login(this.loginForm.value.email, this.loginForm.value.password)
       .subscribe(
         (resp: any) => {
@@ -50,6 +49,7 @@ export class LoginComponent implements OnInit {
       )
       }
     else{
+      this.loginForm.markAllAsTouched();
       const dialogRef = this.dialog.open(ModalErrorComponent, {
       width: '35%',
       data: {
@@ -67,9 +67,9 @@ export class LoginComponent implements OnInit {
       form => {
         this.authService.register(form).subscribe(
           (resp: any) => {
-          localStorage.setItem('app_token', resp.accessToken),
-          localStorage.setItem('user_id', resp.user._id),
-          close(),
+          localStorage.setItem('app_token', resp.accessToken);
+          localStorage.setItem('user_id', resp.user._id);
+          this.dialog.closeAll();
           this.router.navigateByUrl('/home')
       },
       error => {

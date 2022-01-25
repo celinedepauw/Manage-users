@@ -17,36 +17,4 @@ export class ModalDeleteComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
-/*    if(this.data.passionId){
-      this.passionService.deletePassion(this.data.userId, this.data.passionId).subscribe(
-        resp =>{
-          this.dialogRef.close();
-          this.passionService.getPassionsForUser(this.data.userId)
-        .subscribe(
-          resp2 => {this.passionService._passions.next(resp2)},
-          error => {console.log('retour réponse erreur :', error)}
-          )
-        },
-        error => {
-          const dialogRef = this.dialog.open(ModalErrorComponent, {
-            width: '350px'
-          });
-        }
-      )
-    }
-    else {
-      this.userService.deleteUser(this.data.userId)
-      .subscribe(
-        resp => {
-        this.dialogRef.close();
-        this.router.navigateByUrl('/home')
-      },
-      error => {
-        const dialogRef = this.dialog.open(ModalErrorComponent, {
-          width: '350px'
-        });
-      }
-      )
-    }  */
 }

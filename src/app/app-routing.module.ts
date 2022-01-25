@@ -10,13 +10,13 @@ import { ProfileComponent } from './profile/profile.component';
 import { LoggedGuard } from './shared/utils/logged.guard';
 
 const routes: Routes = [
-  { path: '', canActivate: [], component: LoginComponent },
-  { path: 'home', canActivate: [LoggedGuard], component: HomeComponent },
-  { path: 'users/:idUser', canActivate: [LoggedGuard], component: DetailsUserComponent },
-  { path: 'create', canActivate: [LoggedGuard], component: CreateUserComponent },
-  { path: 'profile/:idUser', canActivate: [LoggedGuard], component: ProfileComponent},
-  { path: 'add_passion/:idUser', canActivate: [LoggedGuard], component: AddPassionComponent },
-  { path: 'add_passion/:idUser/:idPassion', canActivate: [LoggedGuard], component: AddPassionComponent },
+  { path: '', component: LoginComponent },
+  { path: 'home', component: HomeComponent },
+  { path: 'users/:idUser', component: DetailsUserComponent },
+  { path: 'create', component: CreateUserComponent },
+  { path: 'profile/:idUser', component: ProfileComponent},
+  { path: 'add_passion/:idUser', component: AddPassionComponent },
+  { path: 'add_passion/:idUser/:idPassion', component: AddPassionComponent },
   { path: '**', redirectTo: '', pathMatch: 'full'}
 ];
 

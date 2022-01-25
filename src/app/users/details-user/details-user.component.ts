@@ -82,7 +82,7 @@ export class DetailsUserComponent implements OnInit {
     const dialogRef = this.dialog.open(ModalDeleteComponent, {
       width: '35%',
       data: {
-        title: idPassion ? 'Passion' : 'Utilisateur',
+        title: idPassion ? 'Supprimer la passion ?' : 'Supprimer l\'utilisateur ?',
         typeOfModal: 'Suppression',
         userId: this.userId,
         passionId: idPassion,
@@ -93,7 +93,7 @@ export class DetailsUserComponent implements OnInit {
         if(idPassion){
           this.passionService.deletePassion(this.userId, idPassion).subscribe(
             resp =>{
-              close();
+              this.dialog.closeAll();
               this.passionService.getPassionsForUser(this.userId)
             .subscribe(
               resp2 => {this.passionService._passions.next(resp2)},
@@ -114,8 +114,8 @@ export class DetailsUserComponent implements OnInit {
           this.userService.deleteUser(this.userId)
           .subscribe(
             resp => {
-            close();
-            this.router.navigateByUrl('/home')
+              this.dialog.closeAll();
+              this.router.navigateByUrl('/home')
           },
           error => {
             const dialogRef = this.dialog.open(ModalErrorComponent, {
