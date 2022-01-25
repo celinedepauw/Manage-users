@@ -98,8 +98,9 @@ export class DetailsUserComponent implements OnInit {
     dialogRef.componentInstance.confirmEmitter.subscribe(
       () => {
         if(idPassion){
-          this.passionService.deletePassion(this.userId, idPassion).subscribe(
-            resp =>{
+          this.pService.deletePassion(this.userId, idPassion).subscribe(
+            resp => this.dialog.closeAll()
+            /*resp =>{
               this.dialog.closeAll();
               this.passionService.getPassionsForUser(this.userId)
             .subscribe(
@@ -114,7 +115,7 @@ export class DetailsUserComponent implements OnInit {
                   message: 'La passion n\'a pas pu être supprimée'
                 }
               });
-            }
+            }*/
           )
         }
         else {
