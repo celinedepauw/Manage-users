@@ -5,7 +5,6 @@ import { CreateUserComponent } from './users/create-user/create-user.component';
 import { DetailsUserComponent } from './users/details-user/details-user.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './auth/login/login.component';
-import { Passion } from './passions/passion';
 import { ProfileComponent } from './profile/profile.component';
 import { LoggedGuard } from './shared/utils/logged.guard';
 

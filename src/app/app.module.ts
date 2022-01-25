@@ -32,6 +32,10 @@ import { ModalErrorComponent } from './shared/modal-error/modal-error.component'
 import { ModalUpdatePasswordComponent } from './auth/modal-update-password/modal-update-password.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AddPassionComponent } from './passions/add-passion/add-passion.component';
+import { NG_ENTITY_SERVICE_CONFIG } from '@datorama/akita-ng-entity-service';
+import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
+import { AkitaNgRouterStoreModule } from '@datorama/akita-ng-router-store';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -66,7 +70,9 @@ import { AddPassionComponent } from './passions/add-passion/add-passion.componen
     CommonModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatIconModule
+    MatIconModule,
+    environment.production ? [] : AkitaNgDevtools.forRoot(),
+    AkitaNgRouterStoreModule
   ],
   providers: [
     AuthenticationService,
@@ -76,7 +82,8 @@ import { AddPassionComponent } from './passions/add-passion/add-passion.componen
       useClass: AuthInterceptorService,
       multi: true
     },
-    {provide: MAT_DATE_LOCALE, useValue: 'fr-FR'}
+    {provide: MAT_DATE_LOCALE, useValue: 'fr-FR'},
+    { provide: NG_ENTITY_SERVICE_CONFIG, useValue: { baseUrl: 'https://jsonplaceholder.typicode.com' }}
   ],
   bootstrap: [AppComponent]
 })
