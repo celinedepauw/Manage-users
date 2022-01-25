@@ -9,6 +9,9 @@ import { Passion } from '../../passions/passion';
 import { PassionService } from '../../passions/passion.service';
 import { User } from '../user';
 import { UserService } from '../services/user.service';
+import { PassionsService } from 'src/app/state/passions.service';
+import { PassionsStore } from 'src/app/state/passions.store';
+import { PassionsQuery } from 'src/app/state/passions.query';
 
 @Component({
   selector: 'app-details-user',
@@ -22,18 +25,20 @@ export class DetailsUserComponent implements OnInit {
   updateForm!: FormGroup;
 
   passions$!: Observable<Passion[]>;
-
+  
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private userService: UserService,
     private passionService: PassionService,
-    public dialog: MatDialog
+    private pService: PassionsService,
+    public dialog: MatDialog,
+    private passionsQuery: PassionsQuery
   ) { }
 
   ngOnInit(): void {
-    this.passions$ = this.passionService._passions.asObservable();
-    
+    // sans le store avec behaviorSubject : this.passions$ = this.passionService._passions.asObservable();
+    this.passions$ = this.passionsQuery.allPassions$
     this.updateForm = new FormGroup({
       lastnameToUpdate: new FormControl(''),
       firstnameToUpdate: new FormControl(''),
@@ -67,11 +72,13 @@ export class DetailsUserComponent implements OnInit {
         });
       }
       )
+    /* sans le store, avec le behaviorSubject :
     this.passionService.getPassionsForUser(this.userId)
       .subscribe(
         resp => {this.passionService._passions.next(resp)},
         error => {console.log('retour réponse erreur :', error)}
-        )
+        )*/
+    this.pService.getPassions(this.userId).subscribe()
   }
 
   goToAddAPassion(){
