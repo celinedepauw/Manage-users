@@ -99,8 +99,17 @@ export class DetailsUserComponent implements OnInit {
       () => {
         if(idPassion){
           this.pService.deletePassion(this.userId, idPassion).subscribe(
-            resp => this.dialog.closeAll()
-            /*resp =>{
+            resp => {this.dialog.closeAll()},
+            error => {
+              const dialogRef = this.dialog.open(ModalErrorComponent, {
+                width: '35%',
+                data: {
+                  message: 'La passion n\'a pas pu être supprimée'
+                }
+              });
+            }
+            /* delete sans le store :
+            resp =>{
               this.dialog.closeAll();
               this.passionService.getPassionsForUser(this.userId)
             .subscribe(
