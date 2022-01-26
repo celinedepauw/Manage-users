@@ -7,9 +7,9 @@ import { PassionService } from '../passion.service';
 import {MatChipInputEvent} from '@angular/material/chips';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalErrorComponent } from 'src/app/shared/modal-error/modal-error.component';
-import { PassionsService } from 'src/app/state/passions.service';
-import { PassionsQuery } from 'src/app/state/passions.query';
-import { PassionsStore } from 'src/app/state/passions.store';
+import { PassionsService } from 'src/app/passions/state/passions.service';
+import { PassionsQuery } from 'src/app/passions/state/passions.query';
+import { PassionsStore } from 'src/app/passions/state/passions.store';
 
 @Component({
   selector: 'app-add-passion',

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Store, StoreConfig } from '@datorama/akita';
-import { Passion } from '../passions/passion';
+import { Passion } from '../passion';
 
 export interface PassionsState {
    passions: Passion[]

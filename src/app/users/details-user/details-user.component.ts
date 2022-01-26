@@ -9,9 +9,9 @@ import { Passion } from '../../passions/passion';
 import { PassionService } from '../../passions/passion.service';
 import { User } from '../user';
 import { UserService } from '../services/user.service';
-import { PassionsService } from 'src/app/state/passions.service';
-import { PassionsStore } from 'src/app/state/passions.store';
-import { PassionsQuery } from 'src/app/state/passions.query';
+import { PassionsService } from 'src/app/passions/state/passions.service';
+import { PassionsStore } from 'src/app/passions/state/passions.store';
+import { PassionsQuery } from 'src/app/passions/state/passions.query';
 
 @Component({
   selector: 'app-details-user',

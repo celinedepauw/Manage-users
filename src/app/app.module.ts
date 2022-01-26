@@ -23,7 +23,7 @@ import { CommonModule } from '@angular/common';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './auth/login/login.component';
-import { HomeComponent } from './home/home.component';
+import { HomeComponent } from './users/home/home.component';
 import { DetailsUserComponent } from './users/details-user/details-user.component';
 import { CreateUserComponent } from './users/create-user/create-user.component';
 import { ModalDeleteComponent } from './shared/modal-delete/modal-delete.component';

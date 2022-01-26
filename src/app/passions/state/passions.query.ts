@@ -2,7 +2,7 @@ import { state } from '@angular/animations';
 import { Injectable } from '@angular/core';
 import { Query } from '@datorama/akita';
 import { findIndex } from 'rxjs';
-import { Passion } from '../passions/passion';
+import { Passion } from '../passion';
 import { PassionsStore, PassionsState } from './passions.store';
 
 @Injectable({ providedIn: 'root' })

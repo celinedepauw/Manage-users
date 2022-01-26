@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { Passion } from '../passions/passion';
+import { Passion } from '../passion';
 import { PassionsQuery } from './passions.query';
 import { PassionsStore } from './passions.store';
 
