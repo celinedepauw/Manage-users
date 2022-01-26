@@ -4,17 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { RouterModule } from '@angular/router';
-import { FlexLayoutModule, FlexModule } from '@angular/flex-layout';
-import { MatButtonModule } from '@angular/material/button';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatCardModule } from '@angular/material/card';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatChipsModule } from '@angular/material/chips';
-import { MatIconModule } from '@angular/material/icon';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
+import {  MAT_DATE_LOCALE } from '@angular/material/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptorService } from './shared/utils/authInterceptorService';
 import { AuthenticationService } from './auth/authentication.service';
@@ -22,54 +12,32 @@ import { UserService } from './users/services/user.service';
 import { CommonModule } from '@angular/common';
 
 import { AppComponent } from './app.component';
-import { LoginComponent } from './auth/login/login.component';
-import { HomeComponent } from './users/home/home.component';
-import { DetailsUserComponent } from './users/details-user/details-user.component';
-import { CreateUserComponent } from './users/create-user/create-user.component';
-import { ModalDeleteComponent } from './shared/modal-delete/modal-delete.component';
-import { ModalRegisterComponent } from './auth/modal-register/modal-register.component';
-import { ModalErrorComponent } from './shared/modal-error/modal-error.component';
-import { ModalUpdatePasswordComponent } from './auth/modal-update-password/modal-update-password.component';
-import { ProfileComponent } from './profile/profile.component';
-import { AddPassionComponent } from './passions/add-passion/add-passion.component';
+
 import { NG_ENTITY_SERVICE_CONFIG } from '@datorama/akita-ng-entity-service';
 import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
 import { environment } from '../environments/environment';
+import { AuthModule } from './auth/auth.module';
+import { PassionsModule } from './passions/passions.module';
+import { ProfileModule } from './profile/profile.module';
+import { SharedModule } from './shared/shared.module';
+import { UsersModule } from './users/users.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
-    HomeComponent,
-    DetailsUserComponent,
-    CreateUserComponent,
-    ModalDeleteComponent,
-    ModalRegisterComponent,
-    ModalErrorComponent,
-    ModalUpdatePasswordComponent,
-    ProfileComponent,
-    AddPassionComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     RouterModule,
     BrowserAnimationsModule,
-    FlexLayoutModule,
-    FlexModule,
-    MatButtonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatCardModule,
-    MatDialogModule,
-    MatChipsModule,
     HttpClientModule,
     CommonModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatIconModule,
+    AuthModule,
+    PassionsModule,
+    ProfileModule,
+    SharedModule,
+    UsersModule,
     environment.production ? [] : AkitaNgDevtools.forRoot(),
   ],
   providers: [
