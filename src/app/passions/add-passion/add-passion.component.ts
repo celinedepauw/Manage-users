@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Passion } from '../passion';
@@ -44,9 +44,9 @@ export class AddPassionComponent implements OnInit {
     // sans le store, avec le behaviorSubject : this.passions$ = this.passionService._passions.asObservable();
     this.passions$ = this.passionsQuery.allPassions$
     this.passionForm = new FormGroup({
-      libelle: new FormControl(''),
-      informations: new FormControl(''),
-      date: new FormControl(''),
+      libelle: new FormControl('', Validators.required),
+      informations: new FormControl('', Validators.required),
+      date: new FormControl('', Validators.required),
       examples: new FormControl('')     
     });
     const routeParams = this.route.snapshot.paramMap;
@@ -92,7 +92,7 @@ export class AddPassionComponent implements OnInit {
   }
 
   addPassion(){
-    if(this.passionForm.value.libelle != '' && this.passionForm.value.informations != '' && this.passionForm.value.date != ''){
+    if(this.passionForm.valid){
       this.passion = {
         libelle: this.passionForm.value.libelle,
         informations: this.passionForm.value.informations,
