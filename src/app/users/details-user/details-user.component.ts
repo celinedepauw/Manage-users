@@ -172,11 +172,6 @@ export class DetailsUserComponent implements OnInit {
 
   getDate(datetime: string){
     return new Date(datetime).toLocaleDateString('fr-FR');
-  
-    /* Avant d'utiliser DatePicker : quand input type était date :
-    const dateStr = datetime.split('T')
-    const dateArr = dateStr[0].split('-')
-    return `${dateArr[2]}/${dateArr[1]}/${dateArr[0]}`*/
   }
 
   getInformations(infos: string){

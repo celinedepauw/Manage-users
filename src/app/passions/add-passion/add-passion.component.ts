@@ -9,6 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ModalErrorComponent } from 'src/app/shared/modal-error/modal-error.component';
 import { PassionsService } from 'src/app/state/passions.service';
 import { PassionsQuery } from 'src/app/state/passions.query';
+import { PassionsStore } from 'src/app/state/passions.store';
 
 @Component({
   selector: 'app-add-passion',
@@ -33,6 +34,7 @@ export class AddPassionComponent implements OnInit {
     private passionService: PassionService,
     private pService: PassionsService,
     private passionsQuery: PassionsQuery,
+    private passionsStore: PassionsStore,
     public dialog: MatDialog
   ) { }
 
@@ -53,7 +55,7 @@ export class AddPassionComponent implements OnInit {
         if(routeParams.get('idPassion')){
           this.title = 'Mise à jour de la passion'
           this.passionId = routeParams.get('idPassion')!
-          const goodPassion = this.passionService._passions.getValue().find(passion => this.passionId == passion._id)
+          const goodPassion = this.passionsStore.getValue().passions.find(passion => passion._id == this.passionId)
           if(!!goodPassion && goodPassion._id){
             this.passion = goodPassion
             if(this.passion.examples.length >= 2 || (this.passion.examples.length == 1 && this.passion.examples[0] != '')){
@@ -67,7 +69,7 @@ export class AddPassionComponent implements OnInit {
           }
           else{
             this.router.navigateByUrl('/home')
-          }        
+          }      
         }
     }
     else
@@ -123,6 +125,7 @@ export class AddPassionComponent implements OnInit {
 
   updatePassion(){
     if(this.passionForm.value.libelle != '' && this.passionForm.value.informations != '' && this.passionForm.value.date != ''){
+      /* update sans le store :
       this.passionService.updatePassion(
         this.userId,
         this.passionId,
@@ -134,6 +137,16 @@ export class AddPassionComponent implements OnInit {
         resp => {
           this.router.navigateByUrl(`/users/${this.userId}`)
         }
+      )*/
+      this.pService.updatePassion(
+        this.userId,
+        this.passionId,
+        this.passionForm.value.libelle,
+        this.passionForm.value.informations,
+        this.passionForm.value.date,
+        this.examplesChips
+      ).subscribe(
+        resp => this.router.navigateByUrl(`/users/${this.userId}`)
       )
     }
     else {

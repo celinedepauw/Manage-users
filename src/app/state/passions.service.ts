@@ -27,7 +27,7 @@ export class PassionsService {
       );
   }
 
-  createPassion(userId: string, passion: Passion){
+  createPassion(userId: string, passion: Passion): Observable<Passion>{
     return this.http.post<Passion>(
       `http://localhost:5000/api/v1/passions/${userId}`,
       passion
@@ -52,6 +52,20 @@ export class PassionsService {
             passions: state.passions.filter(item => item._id !== passionId)
           }))
         )
+      )
+  }
+
+  updatePassion(userId: string, passionId: string, libelle: string, informations: string, sinceWhen: string, examples: string[]): Observable<Passion>{
+    return this.http.patch<Passion>(
+      `http://localhost:5000/api/v1/passions/${userId}/${passionId}`,
+      {
+        "libelle": libelle,
+        "informations": informations,
+        "sinceWhen": sinceWhen,
+        "examples": examples
+      }
+      ).pipe(
+        tap(passion => this.passionsQuery.update(passion))
       )
   }
 }
