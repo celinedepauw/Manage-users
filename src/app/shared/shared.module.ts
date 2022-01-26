@@ -5,6 +5,7 @@ import { ModalErrorComponent } from './modal-error/modal-error.component';
 import { FlexLayoutModule, FlexModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MaterialModule } from '../material/material.module';
 
 @NgModule({
   declarations: [
@@ -16,11 +17,13 @@ import { MatDialogModule } from '@angular/material/dialog';
     FlexLayoutModule,
     FlexModule,
     MatButtonModule,
-    MatDialogModule
+    MatDialogModule,
+    MaterialModule,
   ],
   exports: [
     ModalDeleteComponent,
-    ModalErrorComponent
+    ModalErrorComponent,
+    MaterialModule
   ]
 })
 export class SharedModule { }
