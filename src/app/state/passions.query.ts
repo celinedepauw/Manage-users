@@ -25,4 +25,19 @@ export class PassionsQuery extends Query<PassionsState> {
     })
   }
 
+  add(passion: Passion){
+    this.store.update(state => ({
+      passions: [
+        ...state.passions,
+        passion
+      ]
+    }))
+  }
+
+  delete(id: string){
+    this.store.update(state => ({
+      passions: state.passions.filter(item => item._id !== id)
+    }))
+  }
+
 }

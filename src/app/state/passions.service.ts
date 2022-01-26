@@ -32,26 +32,14 @@ export class PassionsService {
       `http://localhost:5000/api/v1/passions/${userId}`,
       passion
       ).pipe(
-        tap(passion => {
-          this.passionsStore.update(state => ({
-            passions: [
-              ...state.passions,
-              passion
-            ]
-          }))
-        }
-        )
+        tap(passion => this.passionsQuery.add(passion))
       )
   }
 
   deletePassion(userId: string, passionId: string){
     return this.http.delete(`http://localhost:5000/api/v1/passions/${userId}/${passionId}`)
       .pipe(
-        tap(
-          this.passionsStore.update(state => ({
-            passions: state.passions.filter(item => item._id !== passionId)
-          }))
-        )
+        tap(resp => this.passionsQuery.delete(passionId))
       )
   }
 
