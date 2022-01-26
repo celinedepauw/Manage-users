@@ -19,11 +19,7 @@ export class PassionsService {
   getPassions(userId: string): Observable<Passion[]>{
     return this.http.get<Passion[]>(`http://localhost:5000/api/v1/passions/${userId}`)
       .pipe(
-        tap(passions => {
-          this.passionsStore.update(state => ({
-            passions: passions
-          }))
-        })
+        tap(passions => this.passionsQuery.getAll(passions))
       );
   }
 

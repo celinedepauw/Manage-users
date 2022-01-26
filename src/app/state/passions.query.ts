@@ -14,6 +14,12 @@ export class PassionsQuery extends Query<PassionsState> {
     super(store);
   }
 
+  getAll(passions: Passion[]){
+    this.store.update(state => ({
+      passions: passions
+    }))
+  }
+
   update(passion: Passion) {
     this.store.update(state => {
       const passions = [...state.passions];
