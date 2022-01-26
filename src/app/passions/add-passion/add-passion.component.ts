@@ -5,9 +5,10 @@ import { Observable } from 'rxjs';
 import { Passion } from '../passion';
 import { PassionService } from '../passion.service';
 import {MatChipInputEvent} from '@angular/material/chips';
-import { DateAdapter } from '@angular/material/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalErrorComponent } from 'src/app/shared/modal-error/modal-error.component';
+import { PassionsService } from 'src/app/state/passions.service';
+import { PassionsQuery } from 'src/app/state/passions.query';
 
 @Component({
   selector: 'app-add-passion',
@@ -30,13 +31,16 @@ export class AddPassionComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private passionService: PassionService,
+    private pService: PassionsService,
+    private passionsQuery: PassionsQuery,
     public dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
     this.examplesChips = [];
     this.title = 'Création d\'une nouvelle passion';
-    this.passions$ = this.passionService._passions.asObservable();
+    // sans le store, avec le behaviorSubject : this.passions$ = this.passionService._passions.asObservable();
+    this.passions$ = this.passionsQuery.allPassions$
     this.passionForm = new FormGroup({
       libelle: new FormControl(''),
       informations: new FormControl(''),
@@ -93,6 +97,7 @@ export class AddPassionComponent implements OnInit {
         sinceWhen: (this.passionForm.value.date),
         examples: this.examplesChips
       }
+      /* création d'une passion sans le store :
       this.passionService.createPassion(this.userId, this.passion)
         .subscribe(
           resp => {
@@ -101,7 +106,10 @@ export class AddPassionComponent implements OnInit {
             this.passionService._passions.next(actualPassions)
             this.router.navigateByUrl(`/users/${this.userId}`)
           }
-        )
+        )*/
+      this.pService.createPassion(this.userId, this.passion).subscribe(
+        resp => this.router.navigateByUrl(`/users/${this.userId}`)
+      )
     }
     else{
       const dialogRef = this.dialog.open(ModalErrorComponent, {
