@@ -13,6 +13,7 @@ import { PassionsService } from 'src/app/passions/state/passions.service';
 import { PassionsStore } from 'src/app/passions/state/passions.store';
 import { PassionsQuery } from 'src/app/passions/state/passions.query';
 import { UsersFacade } from '../users.facade';
+import { PassionsFacade } from 'src/app/passions/passions.facade';
 
 @Component({
   selector: 'app-details-user',
@@ -32,8 +33,8 @@ export class DetailsUserComponent implements OnInit {
     private route: ActivatedRoute,
     private usersFacade: UsersFacade,
     private userService: UserService,
-    private passionService: PassionService,
     private pService: PassionsService,
+    private passionsFacade: PassionsFacade,
     public dialog: MatDialog,
     private passionsQuery: PassionsQuery
   ) { }
@@ -80,7 +81,7 @@ export class DetailsUserComponent implements OnInit {
         resp => {this.passionService._passions.next(resp)},
         error => {console.log('retour réponse erreur :', error)}
         )*/
-    this.pService.getPassions(this.userId).subscribe()
+    this.passionsFacade.getPassionsForUser(this.userId).subscribe()
   }
 
   goToAddAPassion(){
