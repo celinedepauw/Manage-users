@@ -14,4 +14,8 @@ export class UsersFacade {
     getAllUsers(): Observable<User[]>{
         return this.userService.getAllUsers()
     }
+
+    getUserById(id: string): Observable<User>{
+        return this.userService.getUserById(id)
+    }
 }

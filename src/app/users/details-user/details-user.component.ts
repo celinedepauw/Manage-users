@@ -12,6 +12,7 @@ import { UserService } from '../services/user.service';
 import { PassionsService } from 'src/app/passions/state/passions.service';
 import { PassionsStore } from 'src/app/passions/state/passions.store';
 import { PassionsQuery } from 'src/app/passions/state/passions.query';
+import { UsersFacade } from '../users.facade';
 
 @Component({
   selector: 'app-details-user',
@@ -29,6 +30,7 @@ export class DetailsUserComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
+    private usersFacade: UsersFacade,
     private userService: UserService,
     private passionService: PassionService,
     private pService: PassionsService,
@@ -52,7 +54,7 @@ export class DetailsUserComponent implements OnInit {
     else{
       this.router.navigateByUrl('/home')
     }
-    this.userService.getUserById(this.userId)
+    this.usersFacade.getUserById(this.userId)
       .subscribe(
         user => {
         this.user = user,

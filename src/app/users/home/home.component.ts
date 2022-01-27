@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
 import { User } from '../user';
-//import { UserService } from '../services/user.service';
 import { UsersFacade } from '../users.facade';
 
 @Component({
@@ -16,14 +14,12 @@ export class HomeComponent implements OnInit {
   
   constructor(
     private router: Router,
-    //private userService: UserService
     public usersFacade: UsersFacade
   ) {}
 
   ngOnInit(): void {
     this.usersFacade.getAllUsers()
       .subscribe(users => this.users$ = users)
-
   }
 
   getName(lastname: string, firstname: string){
