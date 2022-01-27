@@ -18,4 +18,12 @@ export class UsersFacade {
     getUserById(id: string): Observable<User>{
         return this.userService.getUserById(id)
     }
+
+    deleteUser(id: string){
+        return this.userService.deleteUser(id)
+    }
+
+    updateUser(userId: string, firstname: string, lastname: string, email: string, phoneNumber: string): Observable<User>{
+        return this.userService.updateUser(userId, firstname, lastname, email, phoneNumber)
+    }
 }

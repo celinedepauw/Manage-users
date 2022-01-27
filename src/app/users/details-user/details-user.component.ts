@@ -112,7 +112,8 @@ export class DetailsUserComponent implements OnInit {
               return of('')
             }
           ))
-          /*this.passionsFacade.deletePassion(this.userId, idPassion).subscribe(
+          /*avec subscribe : 
+          this.passionsFacade.deletePassion(this.userId, idPassion).subscribe(
             resp => {this.dialog.closeAll()},
             error => {
               const dialogRef = this.dialog.open(ModalErrorComponent, {
@@ -143,7 +144,7 @@ export class DetailsUserComponent implements OnInit {
           
         }
         else {
-          this.userService.deleteUser(this.userId)
+          this.usersFacade.deleteUser(this.userId)
           .subscribe(
             resp => {
               this.dialog.closeAll();
@@ -164,7 +165,7 @@ export class DetailsUserComponent implements OnInit {
   }
 
   updateUser(){
-    this.userService.updateUser(
+    this.usersFacade.updateUser(
       this.userId, 
       this.updateForm.value.firstnameToUpdate, 
       this.updateForm.value.lastnameToUpdate, 
