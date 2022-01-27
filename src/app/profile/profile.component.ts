@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthenticationService } from '../auth/authentication.service';
+import { AuthenticationService } from '../auth/login/services/authentication.service';
 import { ModalErrorComponent } from '../shared/modal-error/modal-error.component';
 import { ModalUpdatePasswordComponent } from '../auth/modal-update-password/modal-update-password.component';
 import { User } from '../users/user';
@@ -52,7 +52,6 @@ export class ProfileComponent implements OnInit {
       })
   }
 
-  // mettre this.profileForm.value dans updateProfile()
   updateProfile(){
     this.authService.updateProfile(
       this.profileId,

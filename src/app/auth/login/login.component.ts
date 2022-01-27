@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../authentication.service';
+import { AuthenticationService } from './services/authentication.service';
 import { ModalErrorComponent } from '../../shared/modal-error/modal-error.component';
 import { ModalRegisterComponent } from '../modal-register/modal-register.component';
 

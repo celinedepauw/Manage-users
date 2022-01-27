@@ -7,7 +7,7 @@ import { RouterModule } from '@angular/router';
 import {  MAT_DATE_LOCALE } from '@angular/material/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptorService } from './shared/utils/authInterceptorService';
-import { AuthenticationService } from './auth/authentication.service';
+import { AuthenticationService } from './auth/login/services/authentication.service';
 import { UserService } from './users/services/user.service';
 import { CommonModule } from '@angular/common';
 import { AppComponent } from './app.component';

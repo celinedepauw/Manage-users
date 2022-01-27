@@ -2,7 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../authentication.service';
+import { AuthenticationService } from '../login/services/authentication.service';
 import { ModalErrorComponent } from '../../shared/modal-error/modal-error.component';
 
 @Component({
@@ -32,7 +32,6 @@ export class ModalUpdatePasswordComponent implements OnInit {
 
   updatePassword(){
     if(this.updatePasswordForm.valid){
-      console.log('formulaire', this.updatePasswordForm.value)
       this.updateEmitter.emit(this.updatePasswordForm.value)
     }
     else {

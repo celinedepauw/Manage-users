@@ -5,6 +5,7 @@ import { DetailsUserComponent } from './details-user/details-user.component';
 import { HomeComponent } from './home/home.component';
 
 import { SharedModule } from '../shared/shared.module';
+import { UsersFacade } from './users.facade';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,9 @@ import { SharedModule } from '../shared/shared.module';
   imports: [
     CommonModule,
     SharedModule
+  ],
+  providers: [
+    UsersFacade
   ]
 })
 export class UsersModule { }
