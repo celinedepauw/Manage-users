@@ -14,4 +14,8 @@ export class PassionsFacade {
     getPassionsForUser(id: string): Observable<Passion[]>{
         return this.passionsService.getPassions(id)
     }
+
+    deletePassion(userId: string, passionId: string){
+        return this.passionsService.deletePassion(userId, passionId)
+    }
 }

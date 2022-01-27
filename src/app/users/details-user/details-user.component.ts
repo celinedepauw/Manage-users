@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { catchError, Observable, of } from 'rxjs';
 import { ModalDeleteComponent } from '../../shared/modal-delete/modal-delete.component';
 import { ModalErrorComponent } from '../../shared/modal-error/modal-error.component';
 import { Passion } from '../../passions/passion';
@@ -101,7 +101,18 @@ export class DetailsUserComponent implements OnInit {
     dialogRef.componentInstance.confirmEmitter.subscribe(
       () => {
         if(idPassion){
-          this.pService.deletePassion(this.userId, idPassion).subscribe(
+          this.passionsFacade.deletePassion(this.userId, idPassion).pipe(catchError(
+            error => {
+              const dialogRef = this.dialog.open(ModalErrorComponent, {
+                width: '35%',
+                data: {
+                  message: 'La passion n\'a pas pu être supprimée'
+                }
+              });
+              return of('')
+            }
+          ))
+          /*this.passionsFacade.deletePassion(this.userId, idPassion).subscribe(
             resp => {this.dialog.closeAll()},
             error => {
               const dialogRef = this.dialog.open(ModalErrorComponent, {
@@ -110,7 +121,8 @@ export class DetailsUserComponent implements OnInit {
                   message: 'La passion n\'a pas pu être supprimée'
                 }
               });
-            }
+            }*/
+
             /* delete sans le store :
             resp =>{
               this.dialog.closeAll();
@@ -128,7 +140,7 @@ export class DetailsUserComponent implements OnInit {
                 }
               });
             }*/
-          )
+          
         }
         else {
           this.userService.deleteUser(this.userId)
