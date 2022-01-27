@@ -3,9 +3,9 @@ import { CommonModule } from '@angular/common';
 import { ModalDeleteComponent } from './modal-delete/modal-delete.component';
 import { ModalErrorComponent } from './modal-error/modal-error.component';
 import { FlexLayoutModule, FlexModule } from '@angular/flex-layout';
-import { MatButtonModule } from '@angular/material/button';
-import { MatDialogModule } from '@angular/material/dialog';
 import { MaterialModule } from '../material/material.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -16,14 +16,20 @@ import { MaterialModule } from '../material/material.module';
     CommonModule,
     FlexLayoutModule,
     FlexModule,
-    MatButtonModule,
-    MatDialogModule,
     MaterialModule,
+    FormsModule,
+    ReactiveFormsModule,
+    RouterModule
   ],
   exports: [
     ModalDeleteComponent,
     ModalErrorComponent,
-    MaterialModule
+    FlexLayoutModule,
+    FlexModule,
+    MaterialModule,
+    FormsModule,
+    ReactiveFormsModule,
+    RouterModule
   ]
 })
 export class SharedModule { }

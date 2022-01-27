@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FlexLayoutModule, FlexModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -16,11 +14,7 @@ import { MatCardModule } from '@angular/material/card';
   declarations: [],
   imports: [
     CommonModule,
-    FlexLayoutModule,
-    FlexModule,
     MatButtonModule,
-    FormsModule,
-    ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
     MatDialogModule,
@@ -31,11 +25,7 @@ import { MatCardModule } from '@angular/material/card';
     MatCardModule
   ],
   exports: [
-    FlexLayoutModule,
-    FlexModule,
     MatButtonModule,
-    FormsModule,
-    ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
     MatDialogModule,

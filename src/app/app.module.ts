@@ -10,7 +10,6 @@ import { AuthInterceptorService } from './shared/utils/authInterceptorService';
 import { AuthenticationService } from './auth/authentication.service';
 import { UserService } from './users/services/user.service';
 import { CommonModule } from '@angular/common';
-import { MaterialModule } from './material/material.module';
 import { AppComponent } from './app.component';
 
 import { NG_ENTITY_SERVICE_CONFIG } from '@datorama/akita-ng-entity-service';
@@ -38,11 +37,7 @@ import { UsersModule } from './users/users.module';
     ProfileModule,
     SharedModule,
     UsersModule,
-    MaterialModule,
     environment.production ? [] : AkitaNgDevtools.forRoot(),
-  ],
-  exports: [
-    MaterialModule,
   ],
   providers: [
     AuthenticationService,
