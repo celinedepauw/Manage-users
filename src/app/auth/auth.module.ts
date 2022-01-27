@@ -5,6 +5,7 @@ import { LoginComponent } from './login/login.component';
 import { ModalRegisterComponent } from './modal-register/modal-register.component';
 import { ModalUpdatePasswordComponent } from './modal-update-password/modal-update-password.component';
 import { SharedModule } from '../shared/shared.module';
+import { AuthFacade } from './auth.facade';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,9 @@ import { SharedModule } from '../shared/shared.module';
   exports: [
     ModalRegisterComponent,
     ModalUpdatePasswordComponent
+  ],
+  providers: [
+    AuthFacade
   ]
 })
 export class AuthModule { }

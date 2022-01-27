@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { AuthenticationService } from './services/authentication.service';
 import { ModalErrorComponent } from '../../shared/modal-error/modal-error.component';
 import { ModalRegisterComponent } from '../modal-register/modal-register.component';
+import { AuthFacade } from '../auth.facade';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +19,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private router: Router,
     public dialog: MatDialog,
-    private authService: AuthenticationService
+    private authFacade: AuthFacade
   ) { }
 
   ngOnInit(): void {
@@ -30,7 +31,7 @@ export class LoginComponent implements OnInit {
 
   login(){
     if(this.loginForm.valid){
-      this.authService.login(this.loginForm.value.email, this.loginForm.value.password)
+      this.authFacade.login(this.loginForm.value.email, this.loginForm.value.password)
       .subscribe(
         (resp: any) => {
           localStorage.setItem('app_token', resp.accessToken)
@@ -65,7 +66,7 @@ export class LoginComponent implements OnInit {
     });
     dialogRef.componentInstance.profileEmitter.subscribe(
       form => {
-        this.authService.register(form).subscribe(
+        this.authFacade.register(form).subscribe(
           (resp: any) => {
           localStorage.setItem('app_token', resp.accessToken);
           localStorage.setItem('user_id', resp.user._id);
