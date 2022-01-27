@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthenticationService } from '../auth/login/services/authentication.service';
 import { ModalErrorComponent } from '../shared/modal-error/modal-error.component';
 import { ModalUpdatePasswordComponent } from '../auth/modal-update-password/modal-update-password.component';
 import { User } from '../users/user';
 import { UserService } from '../users/services/user.service';
+import { ProfileFacade } from './profile.facade';
 
 @Component({
   selector: 'app-profile',
@@ -22,7 +22,7 @@ export class ProfileComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private authService: AuthenticationService,
+    private profileFacade: ProfileFacade,
     private userService: UserService,
     public dialog: MatDialog,
   ) { }
@@ -53,7 +53,7 @@ export class ProfileComponent implements OnInit {
   }
 
   updateProfile(){
-    this.authService.updateProfile(
+    this.profileFacade.updateProfile(
       this.profileId,
       this.profileForm.value.firstname,
       this.profileForm.value.lastname,
@@ -86,7 +86,7 @@ export class ProfileComponent implements OnInit {
     });
     dialogRef.componentInstance.updateEmitter.subscribe((data: {previousPassword: string, newPassword: string}) => {
       console.log('modif mdp', data)
-      this.authService.updatePassword(data.previousPassword, data.newPassword)
+      this.profileFacade.updatePassword(data.previousPassword, data.newPassword)
         .subscribe(
           resp => {
             this.dialog.closeAll();
