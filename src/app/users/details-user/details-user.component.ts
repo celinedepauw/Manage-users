@@ -101,18 +101,6 @@ export class DetailsUserComponent implements OnInit {
     dialogRef.componentInstance.confirmEmitter.subscribe(
       () => {
         if(idPassion){
-          this.passionsFacade.deletePassion(this.userId, idPassion).pipe(catchError(
-            error => {
-              const dialogRef = this.dialog.open(ModalErrorComponent, {
-                width: '35%',
-                data: {
-                  message: 'La passion n\'a pas pu être supprimée'
-                }
-              });
-              return of('')
-            }
-          ))
-          /*avec subscribe : 
           this.passionsFacade.deletePassion(this.userId, idPassion).subscribe(
             resp => {this.dialog.closeAll()},
             error => {
@@ -122,7 +110,7 @@ export class DetailsUserComponent implements OnInit {
                   message: 'La passion n\'a pas pu être supprimée'
                 }
               });
-            }*/
+            }
 
             /* delete sans le store :
             resp =>{
@@ -141,7 +129,7 @@ export class DetailsUserComponent implements OnInit {
                 }
               });
             }*/
-          
+          )
         }
         else {
           this.usersFacade.deleteUser(this.userId)

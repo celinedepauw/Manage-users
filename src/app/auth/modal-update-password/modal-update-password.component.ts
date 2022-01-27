@@ -17,8 +17,6 @@ export class ModalUpdatePasswordComponent implements OnInit {
   updatePasswordForm!: FormGroup;
 
   constructor(
-    private authService: AuthenticationService,
-    private router: Router,
     public dialog: MatDialog,
     public dialogRef: MatDialogRef<ModalUpdatePasswordComponent>,
   ) { }

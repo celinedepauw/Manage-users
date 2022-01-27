@@ -19,8 +19,6 @@ export class ModalRegisterComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<ModalRegisterComponent>,
     public dialog: MatDialog,
-    private authService: AuthenticationService,
-    private router: Router
   ) { }
 
   ngOnInit(): void {
