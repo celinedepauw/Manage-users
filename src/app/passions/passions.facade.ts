@@ -18,4 +18,12 @@ export class PassionsFacade {
     deletePassion(userId: string, passionId: string){
         return this.passionsService.deletePassion(userId, passionId)
     }
+
+    addPassion(userId: string, passion: Passion): Observable<Passion>{
+        return this.passionsService.createPassion(userId, passion)
+    }
+
+    updatePassion(userId: string, passionId: string, libelle: string, informations: string, sinceWhen: string, examples: string[]): Observable<Passion>{
+        return this.passionsService.updatePassion(userId, passionId, libelle, informations, sinceWhen, examples)
+    }
 }

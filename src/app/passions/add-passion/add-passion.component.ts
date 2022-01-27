@@ -10,6 +10,7 @@ import { ModalErrorComponent } from 'src/app/shared/modal-error/modal-error.comp
 import { PassionsService } from 'src/app/passions/state/passions.service';
 import { PassionsQuery } from 'src/app/passions/state/passions.query';
 import { PassionsStore } from 'src/app/passions/state/passions.store';
+import { PassionsFacade } from '../passions.facade';
 
 @Component({
   selector: 'app-add-passion',
@@ -35,6 +36,7 @@ export class AddPassionComponent implements OnInit {
     private pService: PassionsService,
     private passionsQuery: PassionsQuery,
     private passionsStore: PassionsStore,
+    private passionsFacade: PassionsFacade,
     public dialog: MatDialog
   ) { }
 
@@ -109,7 +111,7 @@ export class AddPassionComponent implements OnInit {
             this.router.navigateByUrl(`/users/${this.userId}`)
           }
         )*/
-      this.pService.createPassion(this.userId, this.passion).subscribe(
+      this.passionsFacade.addPassion(this.userId, this.passion).subscribe(
         resp => this.router.navigateByUrl(`/users/${this.userId}`)
       )
     }
@@ -138,7 +140,7 @@ export class AddPassionComponent implements OnInit {
           this.router.navigateByUrl(`/users/${this.userId}`)
         }
       )*/
-      this.pService.updatePassion(
+      this.passionsFacade.updatePassion(
         this.userId,
         this.passionId,
         this.passionForm.value.libelle,
