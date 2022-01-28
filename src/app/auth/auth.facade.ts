@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Authentication } from "./authentication";
-import { AuthenticationService } from "./login/services/authentication.service";
+import { AuthenticationService } from "./services/authentication.service";
 
 @Injectable()
 export class AuthFacade {

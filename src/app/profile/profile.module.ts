@@ -1,16 +1,21 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ProfileComponent } from './profile.component';
+import { ProfileComponent } from './components/profile/profile.component';
 import { SharedModule } from '../shared/shared.module';
 import { ProfileFacade } from './profile.facade';
+import { ProfileRoutingModule } from './profile-routing.module';
+import { ProfileContainerComponent } from './containers/profile-container/profile-container.component';
 
 @NgModule({
   declarations: [
-    ProfileComponent
+    ProfileComponent,
+    ProfileContainerComponent,
+    ProfileContainerComponent
   ],
   imports: [
     CommonModule,
-    SharedModule
+    SharedModule,
+    ProfileRoutingModule
   ],
   providers: [
     ProfileFacade

@@ -1,16 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AddPassionComponent } from './add-passion/add-passion.component';
+import { AddPassionComponent } from './components/add-passion/add-passion.component';
 import { SharedModule } from '../shared/shared.module';
 import { PassionsFacade } from './passions.facade';
+import { PassionsRoutingModule } from './passions-routing.module';
+import { PassionsContainerComponent } from './containers/passions-container/passions-container.component';
 
 @NgModule({
   declarations: [
-    AddPassionComponent
+    AddPassionComponent,
+    PassionsContainerComponent
   ],
   imports: [
     CommonModule,
-    SharedModule
+    SharedModule,
+    PassionsRoutingModule
   ],
   providers: [
     PassionsFacade
