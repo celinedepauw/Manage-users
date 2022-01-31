@@ -22,7 +22,7 @@ import { UsersContainerComponent } from './containers/users-container/users-cont
     UsersRoutingModule
   ],
   providers: [
-    UsersFacade
+    UsersFacade,
   ]
 })
 export class UsersModule { }

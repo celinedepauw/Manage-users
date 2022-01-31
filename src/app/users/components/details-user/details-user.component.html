@@ -13,10 +13,10 @@
             <mat-label>Prénom</mat-label>
             <input matInput formControlName="firstnameToUpdate">
         </mat-form-field>
-        <mat-form-field>
-            <mat-label>Sexe</mat-label>
-            <input matInput formControlName="sexToUpdate">
-        </mat-form-field>
+        <mat-radio-group formControlName="sexToUpdate">
+            <mat-radio-button value="femme">Femme</mat-radio-button>
+            <mat-radio-button value="homme">Homme</mat-radio-button>
+        </mat-radio-group>
         <mat-form-field>
             <mat-label>Age</mat-label>
             <input matInput formControlName="ageToUpdate">

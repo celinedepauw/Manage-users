@@ -26,6 +26,14 @@
 
     .create-user-form{
         width: 30%;
+
+        .mat-radio-group{
+            text-align: center;
+
+            .mat-radio-button{
+                margin-right: 15px;
+            }
+        }
       
         .create-user-form-button{
             display: block;

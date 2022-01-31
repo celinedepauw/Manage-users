@@ -9,6 +9,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
+import { MatRadioModule } from '@angular/material/radio';
 
 @NgModule({
   declarations: [],
@@ -22,7 +23,8 @@ import { MatCardModule } from '@angular/material/card';
     MatNativeDateModule,
     MatChipsModule,
     MatIconModule,
-    MatCardModule
+    MatCardModule,
+    MatRadioModule
   ],
   exports: [
     MatButtonModule,
@@ -33,7 +35,8 @@ import { MatCardModule } from '@angular/material/card';
     MatNativeDateModule,
     MatChipsModule,
     MatIconModule,
-    MatCardModule
+    MatCardModule,
+    MatRadioModule
   ]
 })
 export class MaterialModule { }

@@ -27,6 +27,14 @@
 
     .details-form{
         width: 30%;
+
+        .mat-radio-group{
+            text-align: center;
+
+            .mat-radio-button{
+                margin-right: 15px;
+            }
+        }
       
         .details-form-button{
             display: block;
