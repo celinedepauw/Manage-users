@@ -52,19 +52,4 @@ export class UserService {
       )
   }
 
-   /*createNewUser(lastName: string, firstName: string, email: string, password: string, phoneNumber: string): Observable<User>{
-    console.log(`user avant endpoint : nom=${lastName}, prénom=${firstName}, email=${email}, password=${password}, phoneNumber=${phoneNumber}`);
-    return this.http.post<User>(
-      'http://localhost:5000/api/v1/users',
-      {
-        firstName,
-        lastName,
-        email,
-        password,
-        phoneNumber
-      },
-      this.httpOptions
-    )
-  }*/
-
 }

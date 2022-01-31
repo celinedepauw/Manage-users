@@ -168,6 +168,7 @@ export class DetailsUserComponent implements OnInit {
       )
         .subscribe(
           resp => {
+          console.log('age après mise à jour : ', resp.age)
           this.router.navigateByUrl('/users/home')
         },
         error => {
