@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
-import { User } from '../../user';
+import { Observable } from 'rxjs';
+//import { User } from '../../user';
+import { User } from '../../../users/state/user.model';
 import { UsersFacade } from '../../users.facade';
 
 @Component({
@@ -11,16 +13,19 @@ import { UsersFacade } from '../../users.facade';
 })
 export class HomeComponent implements OnInit {
 
-  users$!: User[];
+  //users$!: User[];
+  users$! : Observable<User[]>;
   
   constructor(
     private router: Router,
-    public usersFacade: UsersFacade
+    public usersFacade: UsersFacade,
   ) {}
 
   ngOnInit(): void {
-    this.usersFacade.getAllUsers()
-      .subscribe(users => this.users$ = users)
+    this.users$ = this.usersFacade.allUsers$;
+    /*this.usersFacade.getAllUsers()
+      .subscribe(users => this.users$ = users)*/
+     this.usersFacade.getAllUsers().subscribe()
   }
 
   getName(lastname: string, firstname: string){

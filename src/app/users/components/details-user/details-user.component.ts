@@ -22,7 +22,7 @@ import { PassionsFacade } from 'src/app/passions/passions.facade';
 })
 export class DetailsUserComponent implements OnInit {
 
-  user!: User;
+  user!: User | undefined;
   userId!: string;
   updateForm!: FormGroup;
 
@@ -41,7 +41,7 @@ export class DetailsUserComponent implements OnInit {
 
   ngOnInit(): void {
     // sans le store avec behaviorSubject : this.passions$ = this.passionService._passions.asObservable();
-    this.passions$ = this.passionsQuery.allPassions$
+    this.passions$ = this.passionsFacade.allPassions$
     this.updateForm = new FormGroup({
       lastnameToUpdate: new FormControl(''),
       firstnameToUpdate: new FormControl(''),
@@ -57,28 +57,28 @@ export class DetailsUserComponent implements OnInit {
     else{
       this.router.navigateByUrl('/users/home')
     }
-    this.usersFacade.getUserById(this.userId)
-      .subscribe(
-        user => {
-        this.user = user,
+    this.user = this.usersFacade.getUserFromStore(this.userId)
+      if(this.user?._id){
         this.updateForm.patchValue({
-          lastnameToUpdate: user.lastName,
-          firstnameToUpdate: user.firstName,
-          emailToUpdate: user.email,
-          phoneNumberToUpdate: user.phoneNumber,
-          ageToUpdate: user.age,
-          sexToUpdate: user.sex
-        })
-      },
-      error => {
+          lastnameToUpdate: this.user.lastName,
+          firstnameToUpdate: this.user.firstName,
+          emailToUpdate: this.user.email,
+          phoneNumberToUpdate: this.user.phoneNumber,
+          ageToUpdate: this.user.age,
+          sexToUpdate: this.user.sex
+       
+      })
+      }
+      else {
         const dialogRef = this.dialog.open(ModalErrorComponent, {
           width: '35%',
           data: {
             message: 'Il y a eu une erreur, veuillez réessayer'
           }
         });
+        this.router.navigateByUrl('/users/home')
       }
-      )
+   
     /* sans le store, avec le behaviorSubject :
     this.passionService.getPassionsForUser(this.userId)
       .subscribe(
