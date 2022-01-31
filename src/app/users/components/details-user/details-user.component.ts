@@ -46,7 +46,9 @@ export class DetailsUserComponent implements OnInit {
       lastnameToUpdate: new FormControl(''),
       firstnameToUpdate: new FormControl(''),
       emailToUpdate: new FormControl(''),
-      phoneNumberToUpdate: new FormControl('')
+      phoneNumberToUpdate: new FormControl(''),
+      ageToUpdate: new FormControl(''),
+      sexToUpdate: new FormControl('')
     });
     const routeParams = this.route.snapshot.paramMap;
     if(this.userId != ''){
@@ -64,6 +66,8 @@ export class DetailsUserComponent implements OnInit {
           firstnameToUpdate: user.firstName,
           emailToUpdate: user.email,
           phoneNumberToUpdate: user.phoneNumber,
+          ageToUpdate: user.age,
+          sexToUpdate: user.sex
         })
       },
       error => {
@@ -158,7 +162,10 @@ export class DetailsUserComponent implements OnInit {
       this.updateForm.value.firstnameToUpdate, 
       this.updateForm.value.lastnameToUpdate, 
       this.updateForm.value.emailToUpdate, 
-      this.updateForm.value.phoneNumberToUpdate)
+      this.updateForm.value.phoneNumberToUpdate,
+      this.updateForm.value.ageToUpdate,
+      this.updateForm.value.sexToUpdate
+      )
         .subscribe(
           resp => {
           this.router.navigateByUrl('/users/home')
