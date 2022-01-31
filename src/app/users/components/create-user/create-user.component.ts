@@ -28,36 +28,46 @@ export class CreateUserComponent implements OnInit {
       firstname: new FormControl('', [Validators.required]),
       email: new FormControl('', [Validators.required]),
       phoneNumber: new FormControl('', [Validators.required]),
-      age: new FormControl(''),
-      sex: new FormControl('')
+      age: new FormControl('', Validators.required),
+      sex: new FormControl('', Validators.required)
     })
   }
 
   createUser(){
     if(this.createForm.valid){
-      this.user = {
-        firstName: this.createForm.value.firstname,
-        lastName: this.createForm.value.lastname,
-        email: this.createForm.value.email,
-        password: "mdp",
-        phoneNumber: this.createForm.value.phoneNumber,
-        age: this.createForm.value.age,
-        sex: this.createForm.value.sex 
+      if(this.createForm.value.age > 0 && this.createForm.value.age <= 120){
+        this.user = {
+          firstName: this.createForm.value.firstname,
+          lastName: this.createForm.value.lastname,
+          email: this.createForm.value.email,
+          password: "mdp",
+          phoneNumber: this.createForm.value.phoneNumber,
+          age: this.createForm.value.age,
+          sex: this.createForm.value.sex 
+        }
+        this.usersFacade.createUser(this.user)
+          .subscribe(
+            resp => {
+              this.router.navigateByUrl('/users/home')
+            },
+            error => {
+              const dialogRef = this.dialog.open(ModalErrorComponent, {
+                width: '35%',
+                data: {
+                  message: 'L\'adhérent n\'a pas pu être créé'
+                }
+              });
+            }
+          )
       }
-      this.usersFacade.createUser(this.user)
-        .subscribe(
-          resp => {
-            this.router.navigateByUrl('/users/home')
-          },
-          error => {
-            const dialogRef = this.dialog.open(ModalErrorComponent, {
-              width: '35%',
-              data: {
-                message: 'L\'adhérent n\'a pas pu être créé'
-              }
-            });
+      else {
+        const dialogRef = this.dialog.open(ModalErrorComponent, {
+          width: '35%',
+          data: {
+            message: 'L\'age doit être compris entre 1 et 120'
           }
-        )
+        });
+      }
     }
    else {
     this.createForm.markAllAsTouched();
