@@ -38,7 +38,11 @@ export class UsersFacade {
     }
 
     deleteUser(id: string){
-        return this.userService.deleteUser(id)
+        return this.userService.deleteUser(id).pipe(tap(resp => {
+            this.usersStore.update(state => ({
+                users: state.users.filter(item => item._id !== id)
+            }))
+        }))
     }
 
     updateUser(userId: string, firstname: string, lastname: string, email: string, phoneNumber: string, age: string, sex: string): Observable<User>{
