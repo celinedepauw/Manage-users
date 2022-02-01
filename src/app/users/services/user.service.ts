@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { User } from '../user';
+//import { User } from '../user';
+import { User } from '../../users/state/user.model';
 import { Observable, of } from 'rxjs';
 
 @Injectable({
@@ -29,8 +30,7 @@ export class UserService {
     console.log('user avant endpoint : ', user);
     return this.http.post<User>(
       'http://localhost:5000/api/v1/users',
-      user,
-     //facultatif :  this.httpOptions
+      user
     )
   }
 

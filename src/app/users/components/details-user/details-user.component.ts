@@ -36,7 +36,6 @@ export class DetailsUserComponent implements OnInit {
     private pService: PassionsService,
     private passionsFacade: PassionsFacade,
     public dialog: MatDialog,
-    private passionsQuery: PassionsQuery
   ) { }
 
   ngOnInit(): void {

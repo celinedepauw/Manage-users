@@ -23,9 +23,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.users$ = this.usersFacade.allUsers$;
-    /*this.usersFacade.getAllUsers()
-      .subscribe(users => this.users$ = users)*/
-     this.usersFacade.getAllUsers().subscribe()
+    this.usersFacade.getAllUsers().subscribe()
   }
 
   getName(lastname: string, firstname: string){

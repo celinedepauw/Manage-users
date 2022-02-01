@@ -1,13 +1,17 @@
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { Passion } from "./passion";
+import { PassionsQuery } from "./state/passions.query";
 
 import { PassionsService } from "./state/passions.service";
 
 @Injectable()
 export class PassionsFacade {
-  
+
+    allPassions$ = this.passionsQuery.allPassions$;
+
     constructor(
+        private passionsQuery: PassionsQuery,
         private passionsService: PassionsService
     ){}
 

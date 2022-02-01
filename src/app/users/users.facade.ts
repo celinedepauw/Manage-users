@@ -5,7 +5,8 @@ import { UserService } from './services/user.service';
 import { UsersQuery } from "./state/users.query";
 import { UsersService } from "./state/users.service";
 import { UsersStore } from "./state/users.store";
-import { User } from "./user";
+//import { User } from "./user";
+import { User } from '../users/state/user.model';
 
 @Injectable()
 export class UsersFacade {
@@ -29,12 +30,11 @@ export class UsersFacade {
         return this.usersQuery.getEntity(userId)
     }
 
-    getUserById(id: string): Observable<User>{
-        return this.userService.getUserById(id)
-    }
-
     createUser(user: User): Observable<User>{
-        return this.userService.createNewUser(user)
+        return this.userService.createNewUser(user).pipe(tap(user => {
+            this.usersStore.add(user)
+        }));
+    
     }
 
     deleteUser(id: string){

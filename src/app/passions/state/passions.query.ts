@@ -1,7 +1,5 @@
-import { state } from '@angular/animations';
 import { Injectable } from '@angular/core';
 import { Query } from '@datorama/akita';
-import { findIndex } from 'rxjs';
 import { Passion } from '../passion';
 import { PassionsStore, PassionsState } from './passions.store';
 
@@ -14,13 +12,13 @@ export class PassionsQuery extends Query<PassionsState> {
     super(store);
   }
 
-  getAll(passions: Passion[]){
+  getAllPassions(passions: Passion[]){
     this.store.update(state => ({
       passions: passions
     }))
   }
 
-  update(passion: Passion) {
+  updatePassion(passion: Passion) {
     this.store.update(state => {
       const passions = [...state.passions];
       const index = passions.findIndex(p => p._id == passion._id);
@@ -31,7 +29,7 @@ export class PassionsQuery extends Query<PassionsState> {
     })
   }
 
-  add(passion: Passion){
+  addPassion(passion: Passion){
     this.store.update(state => ({
       passions: [
         ...state.passions,
@@ -40,7 +38,7 @@ export class PassionsQuery extends Query<PassionsState> {
     }))
   }
 
-  delete(id: string){
+  deletePassion(id: string){
     this.store.update(state => ({
       passions: state.passions.filter(item => item._id !== id)
     }))

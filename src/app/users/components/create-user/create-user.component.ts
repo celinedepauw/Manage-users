@@ -3,7 +3,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ModalErrorComponent } from '../../../shared/modal-error/modal-error.component';
-import { User } from '../../user';
+//import { User } from '../../user';
+import { User } from '../../../users/state/user.model';
 import { UsersFacade } from '../../users.facade';
 
 @Component({
