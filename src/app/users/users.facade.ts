@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Observable, tap } from "rxjs";
+import { filter, map } from 'rxjs/operators';
 
 import { UserService } from './services/user.service';
 import { UsersQuery } from "./state/users.query";
@@ -46,7 +47,8 @@ export class UsersFacade {
     }
 
     updateUser(userId: string, firstname: string, lastname: string, email: string, phoneNumber: string, age: string, sex: string): Observable<User>{
-
-        return this.userService.updateUser(userId, firstname, lastname, email, phoneNumber, age, sex)
+        return this.userService.updateUser(userId, firstname, lastname, email, phoneNumber, age, sex).pipe(tap(user => {
+        }))
     }
+
 }

@@ -4,28 +4,31 @@
     </a>
     <img class="home-picture" src="../../assets/images/banniere.png">
     <h1 class="home-title">Liste des adhérents</h1>
-    <div class="home-selects" fxLayout="raw" fxLayoutAlign="center center">
+    <form [formGroup]="searchForm" class="home-form-search" fxLayout="raw" fxLayoutAlign="center center">
+        <mat-form-field>
+            <mat-label>Nom, prénom</mat-label>
+            <input matInput formControlName="name">
+        </mat-form-field>
         <mat-form-field>
             <mat-label>Sexe</mat-label>
-            <mat-select>
+            <mat-select formControlName="sex">
                 <mat-option value="femme">Femme</mat-option>
                 <mat-option value="homme">Homme</mat-option>
             </mat-select>
         </mat-form-field>
         <mat-form-field>
             <mat-label>Age</mat-label>
-            <mat-select>
+            <mat-select formControlName="age">
                 <mat-option value="minor">Moins de 18 ans</mat-option>
-                <mat-option value="18-30">18-30 ans</mat-option>
-                <mat-option value="31-50">31-50 ans</mat-option>
-                <mat-option value="51-70">51-70 ans</mat-option>
-                <mat-option value="more">Plus de 70 ans</mat-option>
+                <mat-option value="18_30">18-30 ans</mat-option>
+                <mat-option value="31_50">31-50 ans</mat-option>
+                <mat-option value="51_70">51-70 ans</mat-option>
+                <mat-option value="oldest">Plus de 70 ans</mat-option>
             </mat-select>
-        </mat-form-field>
-        
-    </div>
+        </mat-form-field>   
+    </form>
     <div class="home-users" fxLayout="column" fxLayoutAlign="center center">
-        <mat-card *ngFor="let user of users$ | async" fxLayoutAlign="center center" routerLink="/users/details/{{user._id}}">
+        <mat-card *ngFor="let user of filteredUsers$ | async" fxLayoutAlign="center center" routerLink="/users/details/{{user._id}}">
             <mat-card-title>{{ getName(user.lastName, user.firstName) }}</mat-card-title>
         </mat-card>  
     </div>
