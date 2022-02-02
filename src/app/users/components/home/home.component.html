@@ -12,11 +12,13 @@
         <mat-form-field>
             <mat-label>Sexe</mat-label>
             <mat-select formControlName="sex">
+                <mat-option value="">Tous</mat-option>
                 <mat-option value="femme">Femme</mat-option>
                 <mat-option value="homme">Homme</mat-option>
             </mat-select>
         </mat-form-field>
-        <mat-form-field>
+        <ngx-slider [options] = "options" formControlName="age"></ngx-slider>
+        <!--<mat-form-field>
             <mat-label>Age</mat-label>
             <mat-select formControlName="age">
                 <mat-option value="minor">Moins de 18 ans</mat-option>
@@ -25,7 +27,7 @@
                 <mat-option value="51_70">51-70 ans</mat-option>
                 <mat-option value="oldest">Plus de 70 ans</mat-option>
             </mat-select>
-        </mat-form-field>   
+        </mat-form-field>   -->
     </form>
     <div class="home-users" fxLayout="column" fxLayoutAlign="center center">
         <mat-card *ngFor="let user of filteredUsers$ | async" fxLayoutAlign="center center" routerLink="/users/details/{{user._id}}">

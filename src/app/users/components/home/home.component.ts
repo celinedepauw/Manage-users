@@ -1,3 +1,4 @@
+import { Options } from '@angular-slider/ngx-slider';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -16,6 +17,7 @@ export class HomeComponent implements OnInit {
   //users$!: User[];
   users$! : Observable<User[]>;
   searchForm!: FormGroup;
+  options!: Options;
 
   filteredUsers$!: Observable<User[]>;
   
@@ -28,8 +30,18 @@ export class HomeComponent implements OnInit {
     this.searchForm = new FormGroup({
       name: new FormControl(''),
       sex: new FormControl(''),
-      age: new FormControl('')
+      age: new FormControl([0, 100])
     })
+
+    this.options = {
+      floor: 0,
+      ceil: 100,
+      step: 10,
+      translate: (value: number): string => {
+        return value + ' ans';
+      }
+    }
+
     this.users$ = this.usersFacade.allUsers$
     
     this.usersFacade.getAllUsers().subscribe()
@@ -39,24 +51,18 @@ export class HomeComponent implements OnInit {
       this.searchForm.valueChanges.pipe(startWith({
         name: '',
         sex: '',
-        age: ''
+        age: [0, 100]
       })),
     ]).pipe(
       map(
-        ([users, search]) => {
-          console.log('users : ', users)
-          return users.filter(user => 
+        ([users, search]) => users.filter(user => 
             user.sex!.includes(search.sex)  
-            && (user.firstName.includes(search.name) || user.lastName.includes(search.name) 
-           // user.age == search.age
-            ) 
-          )
-        }
+            && (user.firstName.includes(search.name) || user.lastName.includes(search.name)) 
+            && user.age! >= search.age[0] && user.age! <= search.age[1]
+          )        
       )
     )   
-
   }
-
 
   getName(lastname: string, firstname: string){
     const firstnameUpper = firstname.charAt(0).toUpperCase() + firstname.slice(1)
