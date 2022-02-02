@@ -36,8 +36,13 @@
         .ngx-slider{
             width: 20%;
             
-        }
+            .ngx-slider-selection{
+                background: orange !important;
+            }
+        }       
     }
+
+    
 
     .home-users{
 
