@@ -44,7 +44,7 @@ export class AddPassionComponent implements OnInit {
     this.examplesChips = [];
     this.title = 'Création d\'une nouvelle passion';
     // sans le store, avec le behaviorSubject : this.passions$ = this.passionService._passions.asObservable();
-    this.passions$ = this.passionsQuery.allPassions$
+    this.passions$ = this.passionsFacade.allPassions$
     this.passionForm = new FormGroup({
       libelle: new FormControl('', Validators.required),
       informations: new FormControl('', Validators.required),

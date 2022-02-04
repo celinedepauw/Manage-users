@@ -17,12 +17,11 @@ export class UsersFacade {
     constructor(
         private userService: UserService,
         private usersQuery: UsersQuery,
-        private usersService: UsersService,
         private usersStore: UsersStore
     ){}
 
     getAllUsers(): Observable<User[]>{
-        return this.usersService.getAllUsers().pipe(tap(entities => {
+        return this.userService.getAllUsers().pipe(tap(entities => {
             this.usersStore.set(entities);
           }));
     }
@@ -38,17 +37,28 @@ export class UsersFacade {
     
     }
 
-    deleteUser(id: string){
+    /*deleteUser(id: string){
         return this.userService.deleteUser(id).pipe(tap(resp => {
             this.usersStore.update(state => ({
                 users: state.users.filter(item => item._id !== id)
             }))
         }))
-    }
+    }*/
 
-    updateUser(userId: string, firstname: string, lastname: string, email: string, phoneNumber: string, age: string, sex: string): Observable<User>{
-        return this.userService.updateUser(userId, firstname, lastname, email, phoneNumber, age, sex).pipe(tap(user => {
+    deleteUser(id: string){
+        return this.userService.deleteUser(id).pipe(tap(resp => {
+            this.usersStore.remove(id)
         }))
     }
 
+    /*updateUser(userId: string, firstname: string, lastname: string, email: string, phoneNumber: string, age: string, sex: string): Observable<User>{
+        return this.userService.updateUser(userId, firstname, lastname, email, phoneNumber, age, sex).pipe(tap(user => {
+        }))
+    }*/
+
+    updateUser(userId: string, firstname: string, lastname: string, email: string, phoneNumber: string, age: string, sex: string): Observable<User>{
+        return this.userService.updateUser(userId, firstname, lastname, email, phoneNumber, age, sex).pipe(tap(user => {
+            this.usersStore.update(userId, user)
+        }))
+    }
 }

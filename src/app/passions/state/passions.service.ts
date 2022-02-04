@@ -18,25 +18,25 @@ export class PassionsService {
 
   getPassions(userId: string): Observable<Passion[]>{
     return this.http.get<Passion[]>(`http://localhost:5000/api/v1/passions/${userId}`)
-      .pipe(
+      /*.pipe(
         tap(passions => this.passionsQuery.getAllPassions(passions))
-      );
+      );*/
   }
 
   createPassion(userId: string, passion: Passion): Observable<Passion>{
     return this.http.post<Passion>(
       `http://localhost:5000/api/v1/passions/${userId}`,
       passion
-      ).pipe(
+      )/*.pipe(
         tap(passion => this.passionsQuery.addPassion(passion))
-      )
+      )*/
   }
 
   deletePassion(userId: string, passionId: string){
     return this.http.delete(`http://localhost:5000/api/v1/passions/${userId}/${passionId}`)
-      .pipe(
+      /*.pipe(
         tap(resp => this.passionsQuery.deletePassion(passionId))
-      )
+      )*/
   }
 
   updatePassion(userId: string, passionId: string, libelle: string, informations: string, sinceWhen: string, examples: string[]): Observable<Passion>{
@@ -48,8 +48,8 @@ export class PassionsService {
         "sinceWhen": sinceWhen,
         "examples": examples
       }
-      ).pipe(
+      )/*.pipe(
         tap(passion => this.passionsQuery.updatePassion(passion))
-      )
+      )*/
   }
 }
