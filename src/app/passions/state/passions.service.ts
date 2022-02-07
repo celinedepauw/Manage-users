@@ -41,7 +41,7 @@ export class PassionsService {
         "libelle": libelle,
         "informations": informations,
         "sinceWhen": sinceWhen,
-        "examples": examples
+        "examples": examples,
       }
       )/*.pipe(
         tap(passion => this.passionsQuery.updatePassion(passion))

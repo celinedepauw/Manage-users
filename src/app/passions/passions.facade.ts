@@ -17,9 +17,10 @@ export class PassionsFacade {
     ){}
 
     getPassionsForUser(id: string): Observable<Passion[]>{
-        return this.passionService.getPassionsForUser(id).pipe(
+        return this.passionService.getPassionsForUser(id)
+        /*return this.passionService.getPassionsForUser(id).pipe(
             tap(passions => this.passionsQuery.getAllPassions(passions)
-          ));
+          )); */
     }
 
     deletePassion(userId: string, passionId: string){
@@ -30,7 +31,7 @@ export class PassionsFacade {
 
     addPassion(userId: string, passion: Passion): Observable<Passion>{
         return this.passionService.createPassion(userId, passion).pipe(
-            tap(passion => this.passionsQuery.addPassion(passion))
+            tap(passionApi => this.passionsQuery.addPassion(passionApi))
           )
     }
 

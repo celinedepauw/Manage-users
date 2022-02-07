@@ -2,8 +2,10 @@ import { Options } from '@angular-slider/ngx-slider';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { combineLatest, Observable, map, startWith } from 'rxjs';
-//import { User } from '../../user';
+import { combineLatest, Observable, map, startWith, tap, mergeMap, filter, from, of, forkJoin, switchMap } from 'rxjs';
+import { Passion } from 'src/app/passions/passion';
+import { PassionsFacade } from 'src/app/passions/passions.facade';
+import { PassionsStore } from 'src/app/passions/state/passions.store';
 import { User } from '../../../users/state/user.model';
 import { UsersFacade } from '../../users.facade';
 
@@ -15,15 +17,23 @@ import { UsersFacade } from '../../users.facade';
 export class HomeComponent implements OnInit {
 
   //users$!: User[];
-  users$! : Observable<User[]>;
+  users$!: Observable<User[]>;
   searchForm!: FormGroup;
   options!: Options;
 
   filteredUsers$!: Observable<User[]>;
+
+  passions$!: Observable<Passion[]>;
+
+  passionsForOneUser$!: Observable<Passion[]>;
+
+  userWithPassions$!: Observable<UserWithPassions>;
   
   constructor(
     private router: Router,
-    public usersFacade: UsersFacade,
+    private usersFacade: UsersFacade,
+    private passionsFacade: PassionsFacade,
+    private store: PassionsStore
   ) {}
 
   ngOnInit(): void {
@@ -42,10 +52,32 @@ export class HomeComponent implements OnInit {
       }
     }
 
+    /* 2 lignes fonctionnent :
     this.users$ = this.usersFacade.allUsers$
-    
     this.usersFacade.getAllUsers().subscribe()
+    */
 
+    this.usersFacade.getAllUsers().subscribe()
+    this.users$ = this.usersFacade.allUsers$.pipe(
+      switchMap(users =>
+        combineLatest([
+          of(users),
+          forkJoin(users.map(user => this.passionsFacade.getPassionsForUser(user._id!)))
+        ])
+      ),
+      map(([users, passions]) => {
+        let allPassions: Passion[] = [];
+        for(let i = 0; i < users.length; i ++){
+          allPassions = allPassions.concat(passions[i])
+        }
+        //console.log('tableau passions : ', allPassions)
+        this.store.update(state => ({
+          passions: [...allPassions]
+        }))
+        return users;
+      }) 
+    )
+ 
     this.filteredUsers$ = combineLatest([
       this.users$,
       this.searchForm.valueChanges.pipe(startWith({
@@ -72,4 +104,8 @@ export class HomeComponent implements OnInit {
   goToProfile(){
     this.router.navigateByUrl(`/profile/${localStorage.getItem('user_id')}`)
   }
+}
+
+interface UserWithPassions extends User {
+  passions: Passion[]
 }

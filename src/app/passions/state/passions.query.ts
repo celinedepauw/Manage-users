@@ -10,9 +10,9 @@ export class PassionsQuery extends Query<PassionsState> {
     super(store);
   }
 
-  getAllPassions(passions: Passion[]){
+  getAllPassions(passionsToAdd: Passion[]){
     this.store.update(state => ({
-      passions: passions
+      passions: [...state.passions, ...passionsToAdd]
     }))
   }
 

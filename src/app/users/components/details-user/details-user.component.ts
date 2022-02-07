@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { catchError, Observable, of } from 'rxjs';
+import { catchError, map, Observable, of } from 'rxjs';
 import { ModalDeleteComponent } from '../../../shared/modal-delete/modal-delete.component';
 import { ModalErrorComponent } from '../../../shared/modal-error/modal-error.component';
 import { Passion } from '../../../passions/passion';
@@ -28,7 +28,7 @@ export class DetailsUserComponent implements OnInit {
 
   passions$!: Observable<Passion[]>;
   
-  constructor(
+  constructor( 
     private router: Router,
     private route: ActivatedRoute,
     private usersFacade: UsersFacade,
@@ -39,16 +39,6 @@ export class DetailsUserComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // sans le store avec behaviorSubject : this.passions$ = this.passionService._passions.asObservable();
-    this.passions$ = this.passionsFacade.allPassions$
-    this.updateForm = new FormGroup({
-      lastnameToUpdate: new FormControl(''),
-      firstnameToUpdate: new FormControl(''),
-      emailToUpdate: new FormControl(''),
-      phoneNumberToUpdate: new FormControl(''),
-      ageToUpdate: new FormControl(''),
-      sexToUpdate: new FormControl('')
-    });
     const routeParams = this.route.snapshot.paramMap;
     if(this.userId != ''){
       this.userId = routeParams.get('idUser')!
@@ -57,34 +47,28 @@ export class DetailsUserComponent implements OnInit {
       this.router.navigateByUrl('/users/home')
     }
     this.user = this.usersFacade.getUserFromStore(this.userId)
-      if(this.user?._id){
-        this.updateForm.patchValue({
-          lastnameToUpdate: this.user.lastName,
-          firstnameToUpdate: this.user.firstName,
-          emailToUpdate: this.user.email,
-          phoneNumberToUpdate: this.user.phoneNumber,
-          ageToUpdate: this.user.age,
-          sexToUpdate: this.user.sex
-       
+    this.passions$ = this.passionsFacade.allPassions$.pipe(
+      map(passions => passions.filter(passion => passion.user._id == this.userId))
+    )
+    if(this.user?._id){
+      this.updateForm = new FormGroup({
+        lastnameToUpdate: new FormControl(this.user.lastName),
+        firstnameToUpdate: new FormControl(this.user.firstName),
+        emailToUpdate: new FormControl(this.user.email),
+        phoneNumberToUpdate: new FormControl(this.user.phoneNumber),
+        ageToUpdate: new FormControl(this.user.age),
+        sexToUpdate: new FormControl(this.user.sex)
       })
-      }
-      else {
-        const dialogRef = this.dialog.open(ModalErrorComponent, {
-          width: '35%',
-          data: {
-            message: 'Il y a eu une erreur, veuillez réessayer'
-          }
-        });
-        this.router.navigateByUrl('/users/home')
-      }
-   
-    /* sans le store, avec le behaviorSubject :
-    this.passionService.getPassionsForUser(this.userId)
-      .subscribe(
-        resp => {this.passionService._passions.next(resp)},
-        error => {console.log('retour réponse erreur :', error)}
-        )*/
-    this.passionsFacade.getPassionsForUser(this.userId).subscribe()
+    }
+    else {
+      const dialogRef = this.dialog.open(ModalErrorComponent, {
+        width: '35%',
+        data: {
+          message: 'Il y a eu une erreur, veuillez réessayer'
+        }
+      });
+      this.router.navigateByUrl('/users/home')
+    }
   }
 
   goToAddAPassion(){
@@ -114,24 +98,6 @@ export class DetailsUserComponent implements OnInit {
                 }
               });
             }
-
-            /* delete sans le store :
-            resp =>{
-              this.dialog.closeAll();
-              this.passionService.getPassionsForUser(this.userId)
-            .subscribe(
-              resp2 => {this.passionService._passions.next(resp2)},
-              error => {console.log('retour réponse erreur :', error)}
-              )
-            },
-            error => {
-              const dialogRef = this.dialog.open(ModalErrorComponent, {
-                width: '35%',
-                data: {
-                  message: 'La passion n\'a pas pu être supprimée'
-                }
-              });
-            }*/
           )
         }
         else {

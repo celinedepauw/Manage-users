@@ -32,9 +32,6 @@ export class AddPassionComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private passionService: PassionService,
-    private pService: PassionsService,
-    private passionsQuery: PassionsQuery,
     private passionsStore: PassionsStore,
     private passionsFacade: PassionsFacade,
     public dialog: MatDialog
@@ -99,20 +96,15 @@ export class AddPassionComponent implements OnInit {
         libelle: this.passionForm.value.libelle,
         informations: this.passionForm.value.informations,
         sinceWhen: (this.passionForm.value.date),
-        examples: this.examplesChips
+        examples: this.examplesChips,
+        user: this.userId as any
       }
-      /* création d'une passion sans le store :
-      this.passionService.createPassion(this.userId, this.passion)
-        .subscribe(
-          resp => {
-            const actualPassions = this.passionService._passions.getValue()
-            actualPassions.push(resp)
-            this.passionService._passions.next(actualPassions)
-            this.router.navigateByUrl(`/users/${this.userId}`)
-          }
-        )*/
       this.passionsFacade.addPassion(this.userId, this.passion).subscribe(
-        resp => this.router.navigateByUrl(`/users/details/${this.userId}`)
+        
+        resp => {
+          console.log('nouvelle passion : ', this.passion),
+          this.router.navigateByUrl(`/users/details/${this.userId}`)
+        }
       )
     }
     else{
@@ -146,7 +138,7 @@ export class AddPassionComponent implements OnInit {
         this.passionForm.value.libelle,
         this.passionForm.value.informations,
         this.passionForm.value.date,
-        this.examplesChips
+        this.examplesChips,
       ).subscribe(
         resp => this.router.navigateByUrl(`/users/details/${this.userId}`)
       )

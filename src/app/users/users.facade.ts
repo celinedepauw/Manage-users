@@ -1,13 +1,12 @@
 import { Injectable } from "@angular/core";
 import { Observable, tap } from "rxjs";
-import { filter, map } from 'rxjs/operators';
 
 import { UserService } from './services/user.service';
 import { UsersQuery } from "./state/users.query";
-import { UsersService } from "./state/users.service";
 import { UsersStore } from "./state/users.store";
 //import { User } from "./user";
 import { User } from '../users/state/user.model';
+import { Passion } from "../passions/passion";
 
 @Injectable()
 export class UsersFacade {
@@ -62,3 +61,4 @@ export class UsersFacade {
         }))
     }
 }
+
