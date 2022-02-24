@@ -26,8 +26,6 @@ export class HomeComponent implements OnInit {
   passions$!: Observable<Passion[]>;
 
   passionsForOneUser$!: Observable<Passion[]>;
-
-  userWithPassions$!: Observable<UserWithPassions>;
   
   constructor(
     private router: Router,
@@ -106,6 +104,3 @@ export class HomeComponent implements OnInit {
   }
 }
 
-interface UserWithPassions extends User {
-  passions: Passion[]
-}
